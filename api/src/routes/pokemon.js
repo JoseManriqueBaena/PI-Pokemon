@@ -5,8 +5,8 @@ const router = Router();
 
 router.get('/', async (req, res) => {
 	const { name } = req.query;
-	const pokeInfo = await controlers.getAllPokemons();
 	try {
+		const pokeInfo = await controlers.getAllPokemons();
 		if (name) {
 			const findPokemon = await controlers.getPokemonsName(name, pokeInfo);
 			return res.json(findPokemon);
@@ -30,8 +30,12 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
 	const info = req.body;
-	const pokeInfo = await controlers.pokeCreate(info);
-	res.status(201).send(pokeInfo);
+	try {
+		const pokeInfo = await controlers.pokeCreate(info);
+		res.status(201).send(pokeInfo);
+	} catch (error) {
+		res.status(400).send(error.message);
+	}
 });
 
 module.exports = router;
