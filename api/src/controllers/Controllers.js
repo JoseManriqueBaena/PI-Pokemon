@@ -20,6 +20,8 @@ const getPokemonsApi = async () => {
 			speed: element.stats[5].base_stat,
 			height: element.height,
 			weight: element.weight,
+			img: element.sprites.other.home.front_default,
+			types: element.types.map((element) => element.type.name),
 		};
 	});
 	return pokeInfoFiltered;
@@ -28,6 +30,13 @@ const getPokemonsApi = async () => {
 const getPokemonDb = async () => {
 	const pokeInfoDb = await Pokemon.findAll({
 		attributes: { exclude: ['crateInDb'] },
+		include: {
+			model: Type,
+			attributes: ['name'],
+			through: {
+				attributes: [],
+			},
+		},
 	});
 	return pokeInfoDb;
 };
@@ -47,14 +56,6 @@ const getPokemonsName = async (name, info) => {
 		throw new Error(`No se encontró un pokemon con el nombre ${name}`);
 	}
 	return pokemonFind;
-	//Preguntar si es exactamente igual o si puede devolver-> char = charmander,charizar, etc
-	// const pokemonFilter = info?.filter((pokemon) =>
-	// 	pokemon.name.toLowerCase().includes(name.toLowerCase())
-	// );
-	// if (!pokemonFilter.length) {
-	// 	throw new Error(`No se encontró un pokemon con el nombre ${name}`);
-	// }
-	// return pokemonFilter;
 };
 
 const getPokemonsId = async (id) => {

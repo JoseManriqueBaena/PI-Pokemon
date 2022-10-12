@@ -35,6 +35,10 @@ module.exports = (sequelize) => {
 			weight: {
 				type: DataTypes.INTEGER,
 			},
+			img: {
+				type: DataTypes.STRING,
+				defaultValue: 'imagen no ingresada',
+			},
 			crateInDb: {
 				// Adicional
 				type: DataTypes.BOOLEAN,
