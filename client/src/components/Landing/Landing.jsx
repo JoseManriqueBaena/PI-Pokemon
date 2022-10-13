@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-function Home(props) {
+function Landing(props) {
 	return (
 		<>
 			<div>
@@ -14,4 +14,4 @@ function Home(props) {
 	);
 }
 
-export default Home;
+export default Landing;

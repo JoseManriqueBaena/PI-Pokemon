@@ -1,14 +1,15 @@
 import './App.css';
-import Cards from './components/Cards/Cards';
+import Pokemons from './components/Pokemons/Pokemons';
+import Home from './components/Home/Home';
+import Landing from './components/Landing/Landing';
 import { Route } from 'react-router-dom';
 import Card from './components/Card/Card';
-import Landing from './components/Landing/Landing';
 
 function App() {
 	return (
 		<div className='App'>
 			<Route exact path={'/'} component={Landing} />
-			<Route path={'/home'} component={Cards} />
+			<Route exact path={'/home'} component={Home} />
 		</div>
 	);
 }

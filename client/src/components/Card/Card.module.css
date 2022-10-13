@@ -1,0 +1,35 @@
+.mainContainer {
+	max-width: 500px;
+	max-height: 500px;
+	padding: 24px;
+	margin: 12px;
+	/* Glasmorfismo */
+	background: rgba(255, 255, 255, 0.6);
+	box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+	backdrop-filter: blur(5px);
+	-webkit-backdrop-filter: blur(5px);
+	border-radius: 10px;
+	border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.pokeName:first-letter {
+	text-transform: uppercase;
+}
+
+.imgPokemon {
+	max-width: 300px;
+}
+
+.containerTypes {
+	display: flex;
+	justify-content: center;
+	column-gap: 12px;
+}
+
+.containerTypes img {
+	max-width: 50px;
+}
+
+.types:first-letter {
+	text-transform: uppercase;
+}
