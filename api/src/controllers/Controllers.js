@@ -29,7 +29,6 @@ const getPokemonsApi = async () => {
 
 const getPokemonDb = async () => {
 	const pokeInfoDb = await Pokemon.findAll({
-		attributes: { exclude: ['crateInDb'] },
 		include: {
 			model: Type,
 			attributes: ['name'],
@@ -91,7 +90,7 @@ const pokeCheckName = async (name) => {
 };
 
 const pokeCreate = async (body) => {
-	const { name, hp, attack, defense, speed, height, weight, type } = body;
+	const { name, hp, attack, defense, speed, height, weight, img, type } = body;
 	if ((!name, !hp, !type)) throw new Error('Faltan datos');
 
 	await pokeCheckName(name);
@@ -104,6 +103,7 @@ const pokeCreate = async (body) => {
 		speed,
 		height,
 		weight,
+		img,
 	});
 
 	const pokeType = await Type.findAll({
@@ -114,7 +114,6 @@ const pokeCreate = async (body) => {
 	await newPokemon.addType(pokeType);
 	const id = newPokemon.id;
 	return await Pokemon.findByPk(newPokemon.id, {
-		attributes: { exclude: ['crateInDb'] },
 		include: {
 			model: Type,
 			attributes: ['name'],
