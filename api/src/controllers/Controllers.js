@@ -74,23 +74,12 @@ const typesInDb = async () => {
 			name: type.name,
 		};
 	});
-	//Otra forma de hacerlo
-	// pokeInfo.forEach((pokemonType) => {
-	// 	Type.findOrCreate({
-	// 		where: { name: pokemonType },
-	// 	});
-	// });
-	// console.log(pokeInfo);
 	await Type.bulkCreate(pokeInfo);
 	const dbTypes = await Type.findAll();
 	return dbTypes;
 };
 
-const pokeCreate = async (body) => {
-	const { name, hp, attack, defense, speed, height, weight, type } = body;
-	if ((!name, !hp, !type)) throw new Error('Faltan datos');
-
-	//Compruebo que no tengan nombres repetidos(Adicional, preguntar asi se puede)
+const pokeCheckName = async (name) => {
 	const allPokemons = await getAllPokemons();
 	const pokemonFind = allPokemons?.find(
 		(pokemon) => pokemon.name.toLowerCase() === name.toLowerCase()
@@ -99,7 +88,13 @@ const pokeCreate = async (body) => {
 		throw new Error(
 			`No se pueden crear el pokemon ${name} debido a que ya existe un pokemon con ese nombre`
 		);
-	// ------------------------> Posiblemente toque borrar si no es permitido
+};
+
+const pokeCreate = async (body) => {
+	const { name, hp, attack, defense, speed, height, weight, type } = body;
+	if ((!name, !hp, !type)) throw new Error('Faltan datos');
+
+	await pokeCheckName(name);
 
 	let newPokemon = await Pokemon.create({
 		name,
