@@ -106,7 +106,7 @@ const pokeCreate = async (body) => {
 	await pokeCheckName(name);
 
 	let newPokemon = await Pokemon.create({
-		name,
+		name: name.toLowerCase(),
 		pokedex: pokedex++,
 		hp,
 		attack,
