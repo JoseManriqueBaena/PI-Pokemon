@@ -1,4 +1,9 @@
-import { GET_ALL_POKEMONS, LOADING } from '../actions/index.js';
+import {
+	GET_ALL_POKEMONS,
+	LOADING,
+	GET_POKEMONS_NAME,
+	POKEMONS_NOT_FOUND,
+} from '../actions/index.js';
 
 const initialState = {
 	pokemons: [],
@@ -13,6 +18,20 @@ const reducer = (state = initialState, action) => {
 				...state,
 				loading: false,
 				pokemons: action.payload,
+			};
+
+		case GET_POKEMONS_NAME:
+			return {
+				...state,
+				loading: false,
+				pokemons: action.payload,
+			};
+
+		case POKEMONS_NOT_FOUND:
+			return {
+				...state,
+				loading: false,
+				pokemons: [],
 			};
 
 		case LOADING:
