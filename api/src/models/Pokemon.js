@@ -17,6 +17,9 @@ module.exports = (sequelize) => {
 				allowNull: false,
 				unique: true,
 			},
+			pokedex: {
+				type: DataTypes.INTEGER,
+			},
 			hp: {
 				type: DataTypes.INTEGER,
 			},
@@ -46,6 +49,14 @@ module.exports = (sequelize) => {
 				allowNull: false,
 			},
 		},
-		{ timestamps: false }
+		{
+			timestamps: false,
+		}
 	);
 };
+
+/*
+{
+			initialAutoIncrement: 1000,
+		}
+*/

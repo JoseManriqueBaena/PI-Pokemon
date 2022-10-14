@@ -1,12 +1,15 @@
 const { Router } = require('express');
 const { Type } = require('../db');
-const controlers = require('../controllers/Controllers');
+const { getTypes } = require('../controllers/Controllers');
 const router = Router();
 
 router.get('/', async (req, res) => {
-	const dbTypes = await Type.findAll();
-	if (!dbTypes.length) return res.status(400).json('No se encontraron datos');
-	res.json(dbTypes);
+	try {
+		const pokeTypes = await getTypes();
+		res.json(pokeTypes);
+	} catch (error) {
+		res.status(400).json(error.message);
+	}
 });
 
 module.exports = router;

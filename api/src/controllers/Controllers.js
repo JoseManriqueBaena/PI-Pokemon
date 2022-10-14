@@ -10,10 +10,12 @@ const getPokemonsApi = async () => {
 	});
 	const promiseData = await Promise.all(arrayPromise);
 	const pokeInfo = promiseData?.map((element) => element.data);
+	let pokedex = 0;
 	const pokeInfoFiltered = pokeInfo?.map((element) => {
 		return {
 			id: element.id,
 			name: element.name,
+			pokedex: ++pokedex,
 			hp: element.stats[0].base_stat,
 			attack: element.stats[1].base_stat,
 			defense: element.stats[2].base_stat,
@@ -48,10 +50,10 @@ const getAllPokemons = async () => {
 };
 
 const getPokemonsName = async (name, info) => {
-	const pokemonFind = info?.find(
+	const pokemonFind = info?.filter(
 		(pokemon) => pokemon.name.toLowerCase() === name.toLowerCase()
 	);
-	if (!pokemonFind) {
+	if (!pokemonFind.length) {
 		throw new Error(`No se encontró un pokemon con el nombre ${name}`);
 	}
 	return pokemonFind;
@@ -78,6 +80,12 @@ const typesInDb = async () => {
 	return dbTypes;
 };
 
+const getTypes = async () => {
+	const dbTypes = await Type.findAll();
+	if (!dbTypes.length) throw new Error(`No se encontraros tipos`);
+	return dbTypes;
+};
+
 const pokeCheckName = async (name) => {
 	const allPokemons = await getAllPokemons();
 	const pokemonFind = allPokemons?.find(
@@ -89,6 +97,8 @@ const pokeCheckName = async (name) => {
 		);
 };
 
+let pokedex = 1155;
+
 const pokeCreate = async (body) => {
 	const { name, hp, attack, defense, speed, height, weight, img, type } = body;
 	if ((!name, !hp, !type)) throw new Error('Faltan datos');
@@ -97,6 +107,7 @@ const pokeCreate = async (body) => {
 
 	let newPokemon = await Pokemon.create({
 		name,
+		pokedex: pokedex++,
 		hp,
 		attack,
 		defense,
@@ -129,5 +140,6 @@ module.exports = {
 	getPokemonsId,
 	getPokemonsName,
 	typesInDb,
+	getTypes,
 	pokeCreate,
 };
