@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getPokemonsName } from '../../redux/actions';
 
 export default function SearchBar(props) {
@@ -26,10 +26,10 @@ export default function SearchBar(props) {
 						name='pokemon'
 						id='pokemon'
 						value={pokemonName}
-						placeholder='Busca un pokemon'
+						placeholder='Search pokemon'
 						onChange={handlerChange}
 					/>
-					<button type='submit'>Buscar pokemon</button>
+					<button type='submit'>Search</button>
 				</form>
 			</div>
 		</>

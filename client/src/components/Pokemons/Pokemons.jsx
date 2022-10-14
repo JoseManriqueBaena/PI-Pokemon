@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllPokemos } from '../../redux/actions/index';
 import Card from '../Card/Card';
@@ -92,9 +92,9 @@ const imgTypes = [
 
 export default function Cards() {
 	const dispatch = useDispatch();
-	const pokemons = useSelector((state) => state.pokemons);
+	const pokemons = useSelector((state) => state.pokemonsFiltered);
 	const loading = useSelector((state) => state.loading);
-	// console.log(pokemons);
+
 	useEffect(() => {
 		//dispatch
 		dispatch(getAllPokemos());

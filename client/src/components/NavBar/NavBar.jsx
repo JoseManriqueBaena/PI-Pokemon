@@ -8,7 +8,9 @@ function Navbar(props) {
 			<nav>
 				<div className={style.mainContainer}>
 					<div>
-						<img src='' alt='Aun no se nada' />
+						<Link to={'/'}>
+							<img src='' alt='Aun no se nada' />
+						</Link>
 					</div>
 					<div>
 						<Link to={'/home'}>Home</Link>
