@@ -101,7 +101,7 @@ let pokedex = 1155;
 
 const pokeCreate = async (body) => {
 	const { name, hp, attack, defense, speed, height, weight, img, type } = body;
-	if ((!name, !hp, !type)) throw new Error('Faltan datos');
+	if ((!name, !hp, !type.length)) throw new Error('Faltan datos');
 
 	await pokeCheckName(name);
 
