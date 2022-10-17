@@ -1,10 +1,14 @@
 import React from 'react';
 import style from './Card.module.css';
+import IconSword from '../../img/icon_sword.svg';
+import IconShield from '../../img/icon_shield.svg';
 
 function Card({
 	id,
 	pokedex,
 	name,
+	attack,
+	defense,
 	img,
 	types,
 	typesImg,
@@ -17,6 +21,17 @@ function Card({
 			<div>
 				<div className={style.mainContainer}>
 					<h2 className={style.pokeName}>{name}</h2>
+					<div className={style.statsContainer}>
+						<div className={style.stats}>
+							<img src={IconSword} alt='IconShield' />
+							<h3>{attack}</h3>
+						</div>
+						<div className={style.stats}>
+							<img src={IconShield} alt='IconShield' />
+							<h3>{defense}</h3>
+						</div>
+					</div>
+
 					<img className={style.imgPokemon} src={img} alt={img} />
 					<div className={style.pokedexContainer}>
 						<img

@@ -1,12 +1,12 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { getAllPokemos } from '../../redux/actions/index';
+import { refresh } from '../../redux/actions/index';
 
 export default function NotFound() {
 	const dispatch = useDispatch();
 
 	const onClick = () => {
-		dispatch(getAllPokemos());
+		dispatch(refresh());
 	};
 
 	return (

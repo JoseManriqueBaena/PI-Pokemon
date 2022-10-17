@@ -5,7 +5,30 @@ import {
 	POKEMONS_NOT_FOUND,
 	GET_ALL_TYPES,
 	FILTER_TYPES,
+	ASCENDING_POKEDEX,
+	DESCENDING_POKEDEX,
+	A_TO_Z,
+	Z_TO_A,
+	MAX_ATTACK,
+	MIN_ATTACK,
+	MAX_DEFENSE,
+	MIN_DEFENSE,
+	REFRESH,
+	EXISTING,
+	CREATED,
 } from '../actions/index.js';
+
+import {
+	ascAttack,
+	ascDefense,
+	ascPokedex,
+	aToZ,
+	desAttack,
+	desDefense,
+	desPokedex,
+	filterPokemonTypes,
+	zToA,
+} from './helpers.js';
 
 const initialState = {
 	pokemons: [],
@@ -41,21 +64,95 @@ const reducer = (state = initialState, action) => {
 		case GET_ALL_TYPES:
 			return {
 				...state,
-				loading: false,
 				types: action.payload,
+			};
+
+		case REFRESH:
+			return {
+				...state,
+				loading: false,
+				pokemonsFiltered: state.pokemons,
+			};
+
+		case EXISTING:
+			return {
+				...state,
+				loading: false,
+				pokemonsFiltered: state.pokemons.filter(
+					(pokemon) => pokemon.crateInDb === undefined
+				),
+			};
+
+		case CREATED:
+			return {
+				...state,
+				loading: false,
+				pokemonsFiltered: state.pokemons.filter(
+					(pokemon) => pokemon.crateInDb === true
+				),
 			};
 
 		case FILTER_TYPES:
 			return {
 				...state,
 				loading: false,
-				pokemonsFiltered: state.pokemons?.filter((pokemon) =>
-					pokemon.types
-						? pokemon.types.includes(action.payload)
-						: pokemon.Types.map((typeDb) => typeDb.name).includes(
-								action.payload
-						  )
-				),
+				pokemonsFiltered: filterPokemonTypes(state.pokemons, action),
+			};
+
+		case ASCENDING_POKEDEX:
+			return {
+				...state,
+				loading: false,
+				pokemonsFiltered: ascPokedex(state.pokemonsFiltered),
+			};
+
+		case DESCENDING_POKEDEX:
+			return {
+				...state,
+				loading: false,
+				pokemonsFiltered: desPokedex(state.pokemonsFiltered),
+			};
+
+		case A_TO_Z:
+			return {
+				...state,
+				loading: false,
+				pokemonsFiltered: aToZ(state.pokemonsFiltered),
+			};
+
+		case Z_TO_A:
+			return {
+				...state,
+				loading: false,
+				pokemonsFiltered: zToA(state.pokemonsFiltered),
+			};
+
+		case MAX_ATTACK:
+			return {
+				...state,
+				loading: false,
+				pokemonsFiltered: ascAttack(state.pokemonsFiltered),
+			};
+
+		case MIN_ATTACK:
+			return {
+				...state,
+				loading: false,
+				pokemonsFiltered: desAttack(state.pokemonsFiltered),
+			};
+
+		case MAX_DEFENSE:
+			return {
+				...state,
+				loading: false,
+				pokemonsFiltered: ascDefense(state.pokemonsFiltered),
+			};
+
+		case MIN_DEFENSE:
+			return {
+				...state,
+				loading: false,
+				pokemonsFiltered: desDefense(state.pokemonsFiltered),
 			};
 
 		case LOADING:

@@ -100,6 +100,8 @@ export default function Cards() {
 		dispatch(getAllPokemos());
 	}, [dispatch]);
 
+	// console.log(pokemons);
+
 	return (
 		<>
 			<div>
@@ -112,6 +114,8 @@ export default function Cards() {
 								key={pokemon.id}
 								id={pokemon.id}
 								pokedex={pokemon.pokedex}
+								attack={pokemon.attack}
+								defense={pokemon.defense}
 								name={pokemon.name}
 								img={pokemon.img}
 								types={pokemon.types}

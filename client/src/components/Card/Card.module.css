@@ -5,7 +5,7 @@
 	align-items: center;
 	/* Tamaño */
 	width: 300px;
-	height: 350px;
+	height: 400px;
 	padding: 24px;
 	margin: 12px;
 	/* Glasmorfismo */
@@ -24,7 +24,29 @@
 .pokeName {
 	font-size: 24px;
 	padding: 12px;
-	margin: 0;
+	margin: 0px;
+}
+
+.statsContainer {
+	display: flex;
+
+	column-gap: 12px;
+	padding: 12px;
+}
+
+.statsContainer img {
+	width: 25px;
+}
+
+.statsContainer h3 {
+	margin: 0px;
+	font-size: 16px;
+}
+
+.stats {
+	display: flex;
+	align-items: center;
+	column-gap: 12px;
 }
 
 .pokedexContainer {
@@ -41,7 +63,7 @@
 }
 
 .imgPokedex {
-	max-width: 30px;
+	width: 25px;
 }
 
 .imgPokemon {
