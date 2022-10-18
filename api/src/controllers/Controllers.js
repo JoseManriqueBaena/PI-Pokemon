@@ -23,6 +23,7 @@ const getPokemonsApi = async () => {
 			height: element.height,
 			weight: element.weight,
 			img: element.sprites.other.home.front_default,
+			imgShiny: element.sprites.other.home.front_shiny,
 			types: element.types.map((element) => element.type.name),
 		};
 	});
