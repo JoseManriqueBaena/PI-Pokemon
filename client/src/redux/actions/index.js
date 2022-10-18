@@ -2,6 +2,7 @@ import axios from 'axios';
 
 export const GET_ALL_POKEMONS = 'GET_ALL_POKEMONS';
 export const GET_POKEMONS_NAME = 'GET_POKEMONS_NAME';
+export const GET_POKEMON_ID = 'GET_POKEMON_ID';
 export const POKEMONS_NOT_FOUND = 'POKEMONS_NOT_FOUND';
 export const GET_ALL_TYPES = 'GET_ALL_TYPES';
 export const FILTER_TYPES = 'FILTER_TYPES';
@@ -40,6 +41,18 @@ export function getPokemonsName(name) {
 				`http://localhost:3001/pokemons?name=${name}`
 			);
 			dispatch({ type: GET_POKEMONS_NAME, payload: response.data });
+		} catch (error) {
+			dispatch({ type: POKEMONS_NOT_FOUND });
+		}
+	};
+}
+
+export function getPokemonId(id) {
+	return async function (dispatch) {
+		dispatch(loading());
+		try {
+			const response = await axios.get(`http://localhost:3001/pokemons/${id}`);
+			dispatch({ type: GET_POKEMON_ID, payload: response.data });
 		} catch (error) {
 			dispatch({ type: POKEMONS_NOT_FOUND });
 		}

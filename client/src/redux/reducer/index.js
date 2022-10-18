@@ -16,6 +16,7 @@ import {
 	REFRESH,
 	EXISTING,
 	CREATED,
+	GET_POKEMON_ID,
 } from '../actions/index.js';
 
 import {
@@ -26,13 +27,16 @@ import {
 	desAttack,
 	desDefense,
 	desPokedex,
+	filterCreated,
+	filterExisted,
 	filterPokemonTypes,
 	zToA,
 } from './helpers.js';
 
 const initialState = {
-	pokemons: [],
+	pokemons: [], //ALL
 	pokemonsFiltered: [],
+	pokeDetail: {},
 	types: [],
 	loading: false,
 };
@@ -52,6 +56,13 @@ const reducer = (state = initialState, action) => {
 				...state,
 				loading: false,
 				pokemonsFiltered: action.payload,
+			};
+
+		case GET_POKEMON_ID:
+			return {
+				...state,
+				loading: false,
+				pokeDetail: action.payload,
 			};
 
 		case POKEMONS_NOT_FOUND:
@@ -78,18 +89,14 @@ const reducer = (state = initialState, action) => {
 			return {
 				...state,
 				loading: false,
-				pokemonsFiltered: state.pokemons.filter(
-					(pokemon) => pokemon.crateInDb === undefined
-				),
+				pokemonsFiltered: filterExisted(state.pokemons),
 			};
 
 		case CREATED:
 			return {
 				...state,
 				loading: false,
-				pokemonsFiltered: state.pokemons.filter(
-					(pokemon) => pokemon.crateInDb === true
-				),
+				pokemonsFiltered: filterCreated(state.pokemons),
 			};
 
 		case FILTER_TYPES:

@@ -11,17 +11,19 @@ export const ascPokedex = (array) =>
 export const desPokedex = (array) =>
 	array.sort((a, b) => b.pokedex - a.pokedex);
 
-export const aToZ = (array) =>
-	array.sort((a, b) => {
+export const aToZ = (array) => {
+	return array.sort((a, b) => {
 		if (a.name > b.name) return 1;
 		if (a.name < b.name) return -1;
 	});
+};
 
-export const zToA = (array) =>
-	array.sort((a, b) => {
+export const zToA = (array) => {
+	return array.sort((a, b) => {
 		if (a.name < b.name) return 1;
 		if (a.name > b.name) return -1;
 	});
+};
 
 export const ascAttack = (array) => array.sort((a, b) => b.attack - a.attack);
 
@@ -32,3 +34,9 @@ export const ascDefense = (array) =>
 
 export const desDefense = (array) =>
 	array.sort((a, b) => a.defense - b.defense);
+
+export const filterCreated = (array) =>
+	array.filter((pokemon) => pokemon.crateInDb === true);
+
+export const filterExisted = (array) =>
+	array.filter((pokemon) => pokemon.crateInDb === undefined);

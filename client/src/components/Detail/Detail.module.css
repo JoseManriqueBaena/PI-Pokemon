@@ -1,16 +1,16 @@
-.linkCard {
-	text-decoration: none;
-	color: rgb(20, 20, 20);
+.mainContainer {
+	display: flex;
+	justify-content: center;
 }
 
-.mainContainer {
+.infoContainer {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	/* Tamaño */
-	width: 300px;
-	height: 400px;
+	width: 500px;
+	height: 800px;
 	padding: 24px;
 	margin: 24px;
 	/* Glasmorfismo */
@@ -27,69 +27,49 @@
 }
 
 .pokeName {
-	font-size: 24px;
+	font-size: 36px;
 	padding: 12px;
 	margin: 0px;
 }
 
 .statsContainer {
 	display: flex;
-
-	column-gap: 12px;
+	column-gap: 24px;
 	padding: 12px;
 }
 
 .statsContainer img {
-	width: 25px;
+	width: 30px;
 }
 
 .statsContainer h3 {
 	margin: 0px;
-	font-size: 16px;
+	font-size: 24px;
 }
 
 .stats {
 	display: flex;
 	align-items: center;
-	column-gap: 12px;
+	column-gap: 6px;
+}
+
+.imgPokemon {
+	max-width: 350px;
 }
 
 .pokedexContainer {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	column-gap: 12px;
-	padding: 12px 0px;
+	column-gap: 6px;
+	padding: 24px 0px;
 }
 
 .pokedex {
-	font-size: 16px;
+	font-size: 24px;
 	margin: 0;
 }
 
 .imgPokedex {
-	width: 25px;
-}
-
-.imgPokemon {
-	max-width: 200px;
-}
-
-.containerTypes {
-	display: flex;
-	justify-content: center;
-	column-gap: 12px;
-}
-
-.containerTypes img {
-	width: 40px;
-}
-
-.types {
-	display: flex;
-	column-gap: 12px;
-}
-
-.types p {
-	text-transform: capitalize;
+	width: 30px;
 }

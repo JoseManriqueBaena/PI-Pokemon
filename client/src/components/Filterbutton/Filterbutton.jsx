@@ -2,7 +2,13 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { filterTypes, orderFilter, refresh } from '../../redux/actions';
 
-export default function Filterbutton({ name, all, opciones }) {
+export default function Filterbutton({
+	name,
+	all,
+	opciones,
+	paginado,
+	ordenado,
+}) {
 	const dispatch = useDispatch();
 
 	const handlerChange = async (event) => {
@@ -11,12 +17,15 @@ export default function Filterbutton({ name, all, opciones }) {
 
 		switch (targetName) {
 			case 'Types':
+				paginado(1);
 				event.target.value === 'All types'
 					? dispatch(refresh())
 					: dispatch(filterTypes(targetValue));
 				break;
 
 			default:
+				paginado(1);
+				ordenado(targetValue);
 				dispatch(orderFilter(targetValue));
 				break;
 		}

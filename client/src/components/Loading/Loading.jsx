@@ -1,9 +1,19 @@
 import React from 'react';
+import pikachu from '../../img/Pika.webp';
+import style from './Loading.module.css';
 
 function Loading() {
 	return (
 		<>
-			<h1>Toy cargando</h1>
+			<div className={style.mainContainer}>
+				<img src={pikachu} alt='pikachu' />
+				<div className={style.ldsEllipsis}>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+				</div>
+			</div>
 		</>
 	);
 }
