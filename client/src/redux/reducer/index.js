@@ -17,6 +17,7 @@ import {
 	EXISTING,
 	CREATED,
 	GET_POKEMON_ID,
+	GET_ALL_IMG_TYPES,
 } from '../actions/index.js';
 
 import {
@@ -38,6 +39,7 @@ const initialState = {
 	pokemonsFiltered: [],
 	pokeDetail: {},
 	types: [],
+	imgTypes: [],
 	loading: false,
 };
 
@@ -76,6 +78,12 @@ const reducer = (state = initialState, action) => {
 			return {
 				...state,
 				types: action.payload,
+			};
+
+		case GET_ALL_IMG_TYPES:
+			return {
+				...state,
+				imgTypes: action.payload,
 			};
 
 		case REFRESH:

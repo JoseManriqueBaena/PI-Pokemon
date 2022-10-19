@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { getPokemonsName } from '../../redux/actions';
 
-export default function SearchBar(props) {
+export default function SearchBar({ paginado }) {
 	const [pokemonName, setPokemonName] = useState('');
 	// const getPokemonsName = useSelector((state) => state.poke);
 	const dispatch = useDispatch();
@@ -15,6 +15,7 @@ export default function SearchBar(props) {
 		event.preventDefault();
 		dispatch(getPokemonsName(pokemonName));
 		setPokemonName('');
+		paginado(1);
 	};
 
 	return (

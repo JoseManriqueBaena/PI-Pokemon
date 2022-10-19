@@ -1,0 +1,16 @@
+.mainContainer {
+	background-image: url('https://lh3.googleusercontent.com/05JfZ1ZdyzrRNvhJosUFdcjjJRFE7k2KhmeM2ujqeCbrcrCb1hkq7O_JdUBpQ3r9hi0YeSn4WgmKx3Ai8LHdM2SucxSzl9TRZ4fCAqETJ6WtHgE=s0');
+	background-size: cover;
+	/* background-size: 100% 100%; */
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.containerInfo {
+	display: flex;
+	flex-direction: column;
+}

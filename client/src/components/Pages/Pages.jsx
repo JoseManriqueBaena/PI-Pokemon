@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import style from './Pages.module.css';
 
 export default function Pages({ maxPokemonsPage, pokemons, paginado }) {
-	const [activated, setActivated] = useState({});
+	const [activated, setActivated] = useState({
+		1: true,
+	});
 
 	const handlerClick = (event, number) => {
 		const clicked = event.target.name;

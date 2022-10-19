@@ -3,7 +3,11 @@ import Pokemons from '../Pokemons/Pokemons';
 import SearchBar from '../SearchBar/SearchBar';
 import Filterbutton from '../Filterbutton/Filterbutton';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllPokemos, getAllTypes } from '../../redux/actions';
+import {
+	getAllImgTypes,
+	getAllPokemos,
+	getAllTypes,
+} from '../../redux/actions';
 import style from './Home.module.css';
 import TabsFilter from '../TabsFilter/TabsFilter';
 import Pages from '../Pages/Pages';
@@ -31,7 +35,7 @@ function Home() {
 	useEffect(() => {
 		dispatch(getAllTypes());
 		dispatch(getAllPokemos());
-	}, [dispatch]);
+	}, []);
 
 	return (
 		<>
@@ -60,7 +64,7 @@ function Home() {
 						paginado={paginado}
 						ordenado={ordenado}
 					/>
-					<SearchBar />
+					<SearchBar paginado={paginado} />
 				</div>
 				<Pokemons pokemons={pokemonsPerPage} />
 				{pokemons.length <= 12 ? undefined : (

@@ -9,6 +9,15 @@
 	max-width: 400px;
 }
 
+.loading {
+	display: flex;
+}
+
+.loading h1 {
+	margin-right: 18px;
+	color: #fad61d;
+}
+
 .ldsEllipsis {
 	display: inline-block;
 	position: relative;
