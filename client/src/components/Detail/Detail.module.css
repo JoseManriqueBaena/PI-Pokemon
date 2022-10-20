@@ -22,6 +22,20 @@
 	border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
+.arrowContainer {
+	width: 100%;
+	display: flex;
+	justify-content: flex-start;
+}
+
+.arrowContainer img {
+	max-width: 25px;
+}
+
+.arrowContainer img:hover {
+	transform: scale(1.2, 1.2);
+}
+
 .pokeName {
 	text-transform: capitalize;
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { filterTypes, orderFilter, refresh } from '../../redux/actions';
 
 export default function Filterbutton({
@@ -10,6 +10,7 @@ export default function Filterbutton({
 	ordenado,
 }) {
 	const dispatch = useDispatch();
+	const loading = useSelector((state) => state.loading);
 
 	const handlerChange = async (event) => {
 		const targetName = event.target.name;
@@ -31,20 +32,26 @@ export default function Filterbutton({
 		}
 	};
 
+	function capitalize(word) {
+		return word[0].toUpperCase() + word.slice(1).toLowerCase();
+	}
+
 	return (
 		<>
-			<div>
-				<select name={name} id={name} onChange={handlerChange}>
-					<option key={all} value={all}>
-						{all}
-					</option>
-					{opciones?.map((element) => (
-						<option key={element} value={element}>
-							{element}
+			{loading ? null : (
+				<div>
+					<select name={name} id={name} onChange={handlerChange}>
+						<option key={all} value={all}>
+							{all}
 						</option>
-					))}
-				</select>
-			</div>
+						{opciones?.map((element) => (
+							<option key={element} value={element}>
+								{capitalize(element)}
+							</option>
+						))}
+					</select>
+				</div>
+			)}
 		</>
 	);
 }

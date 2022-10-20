@@ -1,9 +1,11 @@
 .mainContainer {
+	position: absolute;
+	width: 100%;
+	height: 80%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	margin-top: 150px;
 }
 .mainContainer img {
 	max-width: 400px;

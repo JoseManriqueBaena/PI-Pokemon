@@ -19,6 +19,7 @@ export const MIN_DEFENSE = 'MIN_DEFENSE';
 export const EXISTING = 'EXISTING';
 export const CREATED = 'CREATED';
 export const LOADING = 'LOADING';
+export const CREATE_POKEMON = 'CREATE_POKEMON';
 
 export function loading() {
 	return {
@@ -79,14 +80,16 @@ export function pokemonFilter(filter) {
 		dispatch(loading());
 		switch (filter) {
 			case 'All':
-				dispatch({ type: REFRESH });
+				dispatch(getAllPokemos());
 				break;
 
 			case 'Existing':
+				await dispatch(getAllPokemos());
 				dispatch({ type: EXISTING });
 				break;
 
 			case 'Created':
+				await dispatch(getAllPokemos());
 				dispatch({ type: CREATED });
 				break;
 
@@ -230,5 +233,12 @@ export function getAllImgTypes() {
 			},
 		];
 		dispatch({ type: GET_ALL_IMG_TYPES, payload: imgTypes });
+	};
+}
+
+export function createPokemon(pokemon) {
+	return async function (dispatch) {
+		await axios.post(`http://localhost:3001/pokemons`, pokemon);
+		dispatch({ type: CREATE_POKEMON });
 	};
 }

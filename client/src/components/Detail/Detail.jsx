@@ -9,11 +9,12 @@ import IconWeight from '../../img/icon_weight.svg';
 import IconHeight from '../../img/icon_height.svg';
 import IconShinyOn from '../../img/icon_shiny_on.svg';
 import IconShinyOff from '../../img/icon_shiny_off.svg';
+import IconArrow from '../../img/icon_arrow.svg';
 import style from './Detail.module.css';
 import Loading from '../Loading/Loading';
 import NotFound from '../NotFound/NotFound';
 
-export default function Detail({ match }) {
+export default function Detail({ match, history }) {
 	const [shiny, setShiny] = useState(false);
 
 	const dispatch = useDispatch();
@@ -21,7 +22,7 @@ export default function Detail({ match }) {
 	const loading = useSelector((state) => state.loading);
 	const imgTypes = useSelector((state) => state.imgTypes);
 	const pokeid = match.params.id;
-
+	console.log(history);
 	useEffect(() => {
 		dispatch(getPokemonId(pokeid));
 		dispatch(getAllImgTypes());
@@ -38,7 +39,7 @@ export default function Detail({ match }) {
 	const handlerClick = () => {
 		shiny ? setShiny(false) : setShiny(true);
 	};
-	console.log(shiny);
+
 	return (
 		<>
 			{loading ? (
@@ -46,8 +47,14 @@ export default function Detail({ match }) {
 			) : Object.entries(pokeDetail).length ? (
 				<div className={style.mainContainer}>
 					<div className={style.infoContainer}>
+						<div className={style.arrowContainer}>
+							<img
+								onClick={() => history.goBack()}
+								src={IconArrow}
+								alt='IconHp'
+							/>
+						</div>
 						<h2 className={style.pokeName}>{pokeDetail.name}</h2>
-
 						<div className={style.statsContainer}>
 							<div className={style.stats}>
 								<img src={IconHp} alt='IconHp' />
@@ -62,21 +69,29 @@ export default function Detail({ match }) {
 								<h3>{pokeDetail.defense}</h3>
 							</div>
 						</div>
-						<div className={style.imgContainers}>
-							<div onClick={handlerClick} className={style.containerShiny}>
+						{pokeDetail.imgShiny ? (
+							<div className={style.imgContainers}>
+								<div onClick={handlerClick} className={style.containerShiny}>
+									<img
+										className={style.imgshiny}
+										src={shiny ? IconShinyOn : IconShinyOff}
+										alt={IconShinyOff}
+									/>
+								</div>
+
 								<img
-									className={style.imgshiny}
-									src={shiny ? IconShinyOn : IconShinyOff}
-									alt={IconShinyOff}
+									className={style.imgPokemon}
+									src={shiny ? pokeDetail.imgShiny : pokeDetail.img}
+									alt={pokeDetail.img}
 								/>
 							</div>
-
+						) : (
 							<img
 								className={style.imgPokemon}
-								src={shiny ? pokeDetail.imgShiny : pokeDetail.img}
+								src={pokeDetail.img}
 								alt={pokeDetail.img}
 							/>
-						</div>
+						)}
 
 						<div className={style.pokedexContainer}>
 							<img

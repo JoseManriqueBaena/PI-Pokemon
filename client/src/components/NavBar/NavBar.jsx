@@ -1,11 +1,12 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import style from './NavBar.module.css';
 
 function Navbar(props) {
 	return (
 		<>
-			<nav>
+			<nav className={style.navContainer}>
 				<div className={style.mainContainer}>
 					<div>
 						<Link to={'/'}>
@@ -14,7 +15,7 @@ function Navbar(props) {
 					</div>
 					<div>
 						<Link to={'/home'}>Home</Link>
-						<Link to={'/create'}>Crear pokemon</Link>
+						<Link to={'/pokecreate'}>Crear pokemon</Link>
 					</div>
 				</div>
 			</nav>
