@@ -21,8 +21,8 @@ export default function Detail({ match, history }) {
 	const pokeDetail = useSelector((state) => state.pokeDetail);
 	const loading = useSelector((state) => state.loading);
 	const imgTypes = useSelector((state) => state.imgTypes);
+
 	const pokeid = match.params.id;
-	console.log(history);
 	useEffect(() => {
 		dispatch(getPokemonId(pokeid));
 		dispatch(getAllImgTypes());

@@ -154,82 +154,102 @@ export function getAllImgTypes() {
 			{
 				type: 'normal',
 				url: 'https://upload.wikimedia.org/wikipedia/commons/a/aa/Pok%C3%A9mon_Normal_Type_Icon.svg',
+				color: '#919aa2',
 			},
 			{
 				type: 'fighting',
 				url: 'https://upload.wikimedia.org/wikipedia/commons/b/be/Pok%C3%A9mon_Fighting_Type_Icon.svg',
+				color: '#e0306a',
 			},
 			{
 				type: 'flying',
 				url: 'https://upload.wikimedia.org/wikipedia/commons/e/e0/Pok%C3%A9mon_Flying_Type_Icon.svg',
+				color: '#89aae3',
 			},
 			{
 				type: 'poison',
 				url: 'https://upload.wikimedia.org/wikipedia/commons/c/c4/Pok%C3%A9mon_Poison_Type_Icon.svg',
+				color: '#b567ce',
 			},
 			{
 				type: 'ground',
 				url: 'https://upload.wikimedia.org/wikipedia/commons/8/8d/Pok%C3%A9mon_Ground_Type_Icon.svg',
+				color: '#e87236',
 			},
 			{
 				type: 'rock',
 				url: 'https://upload.wikimedia.org/wikipedia/commons/b/bb/Pok%C3%A9mon_Rock_Type_Icon.svg',
+				color: '#c8b686',
 			},
 			{
 				type: 'bug',
 				url: 'https://upload.wikimedia.org/wikipedia/commons/3/3c/Pok%C3%A9mon_Bug_Type_Icon.svg',
+				color: '#83c300',
 			},
 			{
 				type: 'ghost',
 				url: 'https://upload.wikimedia.org/wikipedia/commons/a/a0/Pok%C3%A9mon_Ghost_Type_Icon.svg',
+				color: '#4c6ab2',
 			},
 			{
 				type: 'steel',
 				url: 'https://upload.wikimedia.org/wikipedia/commons/3/38/Pok%C3%A9mon_Steel_Type_Icon.svg',
+				color: '#5a8ea2',
 			},
 			{
 				type: 'fire',
 				url: 'https://upload.wikimedia.org/wikipedia/commons/5/56/Pok%C3%A9mon_Fire_Type_Icon.svg',
+				color: '#ff9741',
 			},
 			{
 				type: 'water',
 				url: 'https://upload.wikimedia.org/wikipedia/commons/0/0b/Pok%C3%A9mon_Water_Type_Icon.svg',
+				color: '#3692dc',
 			},
 			{
 				type: 'grass',
 				url: 'https://upload.wikimedia.org/wikipedia/commons/f/f6/Pok%C3%A9mon_Grass_Type_Icon.svg',
+				color: '#38bf4b',
 			},
 			{
 				type: 'electric',
 				url: 'https://upload.wikimedia.org/wikipedia/commons/a/a9/Pok%C3%A9mon_Electric_Type_Icon.svg',
+				color: '#fbd100',
 			},
 			{
 				type: 'psychic',
 				url: 'https://upload.wikimedia.org/wikipedia/commons/a/ab/Pok%C3%A9mon_Psychic_Type_Icon.svg',
+				color: '#ff6675',
 			},
 			{
 				type: 'ice',
 				url: 'https://upload.wikimedia.org/wikipedia/commons/8/88/Pok%C3%A9mon_Ice_Type_Icon.svg',
+				color: '#4cd1c0',
 			},
 			{
 				type: 'dragon',
 				url: 'https://upload.wikimedia.org/wikipedia/commons/a/a6/Pok%C3%A9mon_Dragon_Type_Icon.svg',
+				color: '#006fc9',
 			},
 			{
 				type: 'dark',
 				url: 'https://upload.wikimedia.org/wikipedia/commons/0/09/Pok%C3%A9mon_Dark_Type_Icon.svg',
+				color: '#5b5466',
 			},
 			{
 				type: 'fairy',
 				url: 'https://upload.wikimedia.org/wikipedia/commons/0/08/Pok%C3%A9mon_Fairy_Type_Icon.svg',
+				color: '#fb89eb',
 			},
 			{
 				type: 'unknown',
 				url: 'Not image',
+				color: '#c6c69b',
 			},
 			{
 				type: 'shadow',
 				url: 'Not image',
+				color: '#3f3f3f',
 			},
 		];
 		dispatch({ type: GET_ALL_IMG_TYPES, payload: imgTypes });

@@ -1,3 +1,140 @@
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+	appearance: none;
+	margin: 0;
+}
+
+input[type='number'] {
+	appearance: textfield;
+}
+
+:root {
+	--primary: #11998e;
+	--primaryFocus: #19655e;
+	--secondary: #38ef7d;
+	--white: rgb(249, 249, 249);
+	--black: rgb(51, 51, 51);
+	--gray: #a5a5a5;
+}
+
+.mainContainer {
+	position: absolute;
+	width: 100%;
+	height: 92%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+/*------------ Inputs --------------*/
+
+.imputsContainer {
+	height: 800px;
+	width: 600px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	row-gap: 12px;
+	/* Glass */
+	background: rgba(255, 255, 255, 0.6);
+	box-shadow: 0 8px 20px 0 rgba(31, 38, 135, 0.37);
+	backdrop-filter: blur(5px);
+	-webkit-backdrop-filter: blur(5px);
+	border-radius: 10px;
+	border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.formGroup {
+	position: relative;
+	padding: 15px 0 0;
+	width: 350px;
+}
+.formField {
+	width: 100%;
+	border: 0;
+	border-bottom: 2px solid var(--primary);
+	outline: 0;
+	font-size: 18px;
+	color: var(--black);
+	padding: 7px 0;
+	background: transparent;
+	transition: border-color 0.2s;
+}
+.formField::placeholder {
+	color: transparent;
+}
+.formField:placeholder-shown ~ .formLabel {
+	color: var(--primary);
+	font-size: 18px;
+	cursor: text;
+	top: 20px;
+}
+.formLabel {
+	position: absolute;
+	top: 0;
+	display: block;
+	transition: 0.2s;
+	font-size: 12px;
+	color: var(--gray);
+}
+.formField:focus {
+	padding-bottom: 6px;
+	font-weight: 600;
+	border-width: 3px;
+	border-image: linear-gradient(to right, var(--primary), var(--secondary));
+	border-image-slice: 1;
+}
+.formField:focus ~ .formLabel {
+	position: absolute;
+	top: 0;
+	display: block;
+	transition: 0.2s;
+	font-size: 14px;
+	color: var(--primary);
+	font-weight: 700;
+}
+
+/* .formField:required,
+.formField:invalid {
+	box-shadow: none;
+} */
+
+/* -------------- Select -------------- */
+
+.customSelect {
+	display: block;
+	font-size: 16px;
+	font-family: Roboto;
+	font-weight: 400;
+	border-radius: 5px;
+	color: var(--primary);
+	padding: 10px;
+	width: 350px;
+	height: 50px;
+	margin-top: 12px;
+	border: 1px solid var(--primary);
+	box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.03);
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	appearance: none;
+	outline: none;
+	background-image: url('../../img/icon_down_arrow.svg');
+	background-repeat: no-repeat, repeat;
+	background-position: right 18px top 50%;
+	background-size: 12px auto, 100%;
+}
+
+.customSelect:focus {
+	border: 2px solid var(--primaryFocus);
+}
+
+/* select option:hover {
+	background-color: red;
+} */
+
+/* ------------------------------------ */
+
 .typeContainerMain {
 	display: flex;
 	flex-direction: row;
@@ -6,25 +143,53 @@
 	padding: 12px;
 }
 
+.typeContainerMain img {
+	max-width: 32px;
+}
+
 .pTypeContainer {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-color: rgb(241, 174, 174);
 	height: 50px;
-	width: 130px;
-	column-gap: 6px;
+	width: 160px;
+	column-gap: 8px;
 	border-radius: 8px;
 }
 
+.imageContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: var(--white);
+	height: 40px;
+	width: 40px;
+	border-radius: 50%;
+}
+
 .pType {
+	color: var(--white);
 	text-transform: capitalize;
 	font-size: 18px;
 	font-weight: 500;
 }
 
 .buttonX {
+	position: sticky;
+	color: var(--white);
 	background: none;
 	border: none;
-	font-size: 16px;
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+	font-size: 18px;
+	transition: 0.3s;
+}
+
+.buttonX:hover {
+	transition: 0.3s;
+	border-radius: 50%;
+	width: 25px;
+	height: 25px;
+	background-color: var(--primaryFocus);
 }

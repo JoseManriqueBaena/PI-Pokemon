@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllTypes } from '../../redux/actions';
+import { getAllImgTypes, getAllTypes } from '../../redux/actions';
 import { createPokemon } from '../../redux/actions';
 import style from './CreatePokemon.module.css';
+import { capitalize, findInImgTypes } from '../../redux/reducer/helpers';
 
-export default function CreatePokemon() {
+export default function CreatePokemon({ history }) {
+	const imgTypes = useSelector((state) => state.imgTypes);
+	// console.log(imgTypes);
 	const [newPokemon, setNewPokemon] = useState({
 		name: '',
-		hp: 0,
-		attack: 0,
-		defense: 0,
-		speed: 0,
-		height: 0,
-		weight: 0,
+		hp: '',
+		attack: '',
+		defense: '',
+		speed: '',
+		height: '',
+		weight: '',
 		img: '',
 		type: [],
 	});
@@ -21,14 +24,13 @@ export default function CreatePokemon() {
 	const allTypes = useSelector((state) => state.types);
 
 	useEffect(() => {
+		dispatch(getAllImgTypes());
 		dispatch(getAllTypes());
 	}, []);
 
 	const handlerChange = (event) => {
 		const nameProp = event.target.name;
 		let valueProp = event.target.value;
-		if (nameProp !== 'name' && nameProp !== 'img')
-			valueProp = parseInt(event.target.value);
 		setNewPokemon({ ...newPokemon, [nameProp]: valueProp });
 	};
 
@@ -49,19 +51,19 @@ export default function CreatePokemon() {
 	const handlerSubmit = (event) => {
 		event.preventDefault();
 		dispatch(createPokemon(newPokemon));
-		console.log(newPokemon);
 		alert('Created pokemon');
 		setNewPokemon({
 			name: '',
-			hp: 0,
-			attack: 0,
-			defense: 0,
-			speed: 0,
-			height: 0,
-			weight: 0,
+			hp: '',
+			attack: '',
+			defense: '',
+			speed: '',
+			height: '',
+			weight: '',
 			img: '',
 			type: [],
 		});
+		history.push('/home');
 	};
 
 	const onClose = (event) => {
@@ -75,102 +77,137 @@ export default function CreatePokemon() {
 		});
 	};
 
-	function capitalize(word) {
-		return word[0].toUpperCase() + word.slice(1).toLowerCase();
-	}
-
 	return (
 		<>
-			<div>
-				<h2>Create Pokemon</h2>
+			<div className={style.mainContainer}>
 				<form onSubmit={handlerSubmit}>
-					<div>
-						<label>Name: </label>
-						<input
-							type='text'
-							name='name'
-							onChange={handlerChange}
-							value={newPokemon.name}
-						/>
-					</div>
+					<div className={style.imputsContainer}>
+						<h2>Create Pokemon</h2>
+						{/* Name */}
+						<div className={`${style.formGroup} ${style.field}`}>
+							<input
+								type='text'
+								className={style.formField}
+								placeholder='name'
+								onChange={handlerChange}
+								value={newPokemon.name}
+								name='name'
+								id='name'
+								autoComplete='off'
+								required
+							/>
+							<label className={style.formLabel}>Name</label>
+						</div>
+						{/* Hp */}
+						<div className={`${style.formGroup} ${style.field}`}>
+							<input
+								type='number'
+								className={style.formField}
+								placeholder='Hp'
+								onChange={handlerChange}
+								value={newPokemon.hp}
+								name='hp'
+								id='hp'
+								required
+							/>
+							<label className={style.formLabel}>Hp</label>
+						</div>
+						{/* Attack */}
+						<div className={`${style.formGroup} ${style.field}`}>
+							<input
+								type='number'
+								className={style.formField}
+								placeholder='Attack'
+								onChange={handlerChange}
+								value={newPokemon.attack}
+								name='attack'
+								id='attack'
+								required
+							/>
+							<label className={style.formLabel}>Attack</label>
+						</div>
+						{/* Defense */}
+						<div className={`${style.formGroup} ${style.field}`}>
+							<input
+								type='number'
+								className={style.formField}
+								placeholder='Defense'
+								onChange={handlerChange}
+								value={newPokemon.defense}
+								name='defense'
+								id='defense'
+								required
+							/>
+							<label className={style.formLabel}>Defense</label>
+						</div>
+						{/* Speed */}
+						<div className={`${style.formGroup} ${style.field}`}>
+							<input
+								type='number'
+								className={style.formField}
+								placeholder='Speed'
+								onChange={handlerChange}
+								value={newPokemon.speed}
+								name='speed'
+								id='speed'
+								required
+							/>
+							<label className={style.formLabel}>Speed</label>
+						</div>
+						{/* Height */}
+						<div className={`${style.formGroup} ${style.field}`}>
+							<input
+								type='number'
+								className={style.formField}
+								placeholder='Height'
+								onChange={handlerChange}
+								value={newPokemon.height}
+								name='height'
+								id='height'
+								required
+							/>
+							<label className={style.formLabel}>Height</label>
+						</div>
+						{/* Weight */}
+						<div className={`${style.formGroup} ${style.field}`}>
+							<input
+								type='number'
+								className={style.formField}
+								placeholder='Weight'
+								onChange={handlerChange}
+								value={newPokemon.weight}
+								name='weight'
+								id='weight'
+								required
+							/>
+							<label className={style.formLabel}>Weight</label>
+						</div>
+						{/* Image */}
+						<div className={`${style.formGroup} ${style.field}`}>
+							<input
+								type='text'
+								className={style.formField}
+								placeholder='Image'
+								onChange={handlerChange}
+								value={newPokemon.img}
+								name='img'
+								id='img'
+							/>
+							<label className={style.formLabel}>Image</label>
+						</div>
 
-					<div>
-						<label>Hp: </label>
-						<input
-							type='number'
-							name='hp'
-							onChange={handlerChange}
-							value={newPokemon.hp}
-						/>
-					</div>
-
-					<div>
-						<label>Attack: </label>
-						<input
-							type='number'
-							name='attack'
-							onChange={handlerChange}
-							value={newPokemon.attack}
-						/>
-					</div>
-
-					<div>
-						<label>Defense: </label>
-						<input
-							type='number'
-							name='defense'
-							onChange={handlerChange}
-							value={newPokemon.defense}
-						/>
-					</div>
-
-					<div>
-						<label>Speed: </label>
-						<input
-							type='number'
-							name='speed'
-							onChange={handlerChange}
-							value={newPokemon.speed}
-						/>
-					</div>
-
-					<div>
-						<label>Height: </label>
-						<input
-							type='number'
-							name='height'
-							onChange={handlerChange}
-							value={newPokemon.height}
-						/>
-					</div>
-
-					<div>
-						<label>Weight: </label>
-						<input
-							type='number'
-							name='weight'
-							onChange={handlerChange}
-							value={newPokemon.weight}
-						/>
-					</div>
-
-					<div>
-						<label>Image: </label>
-						<input
-							type='text'
-							name='img'
-							onChange={handlerChange}
-							value={newPokemon.img}
-						/>
-					</div>
-					<div>
 						<select
-							defaultValue={'defaul'}
+							className={style.customSelect}
+							defaultValue={'default'}
 							name={'type'}
 							id={'type'}
 							onChange={handlerChangeSelect}
 						>
-							<option disabled={true} value='defaul'>
+							<option
+								className={style.selectOptions}
+								hidden={true}
+								value='default'
+							>
 								Select the type
 							</option>
 							{allTypes?.map((type) => (
@@ -179,24 +216,38 @@ export default function CreatePokemon() {
 								</option>
 							))}
 						</select>
-					</div>
 
-					<div className={style.typeContainerMain}>
-						{newPokemon?.type?.map((nameType) => (
-							<div className={style.pTypeContainer} key={nameType}>
-								<p className={style.pType}> {nameType} </p>
-								<button
-									value={nameType}
-									className={style.buttonX}
-									onClick={onClose}
+						<div className={style.typeContainerMain}>
+							{newPokemon?.type?.map((nameType) => (
+								<div
+									className={style.pTypeContainer}
+									key={nameType}
+									style={{
+										backgroundColor: findInImgTypes(nameType, imgTypes).color,
+									}}
 								>
-									x
-								</button>
-							</div>
-						))}
-					</div>
+									{nameType === 'unknown' || nameType === 'shadow' ? null : (
+										<div className={style.imageContainer}>
+											<img
+												src={findInImgTypes(nameType, imgTypes).url}
+												alt={`image ${nameType}`}
+											/>
+										</div>
+									)}
+									<p className={style.pType}> {nameType} </p>
+									<button
+										value={nameType}
+										className={style.buttonX}
+										onClick={onClose}
+									>
+										x
+									</button>
+								</div>
+							))}
+						</div>
 
-					<button type='submit'>Create</button>
+						<button type='submit'>Create</button>
+					</div>
 				</form>
 			</div>
 		</>

@@ -6,11 +6,11 @@
 .infoContainer {
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: flex-start;
 	align-items: center;
 	/* Tamaño */
 	width: 500px;
-	height: 800px;
+	height: fit-content;
 	padding: 24px;
 	margin: 24px;
 	/* Glasmorfismo */

@@ -40,3 +40,9 @@ export const filterCreated = (array) =>
 
 export const filterExisted = (array) =>
 	array.filter((pokemon) => pokemon.crateInDb === undefined);
+
+export const capitalize = (word) =>
+	word[0].toUpperCase() + word.slice(1).toLowerCase();
+
+export const findInImgTypes = (type, array) =>
+	array?.find((element) => element.type === type);

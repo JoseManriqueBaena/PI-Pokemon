@@ -3,11 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { filterTypes, orderFilter, refresh } from '../../redux/actions';
 
 export default function Filterbutton({
+	defaultOption,
 	name,
 	all,
 	opciones,
 	paginado,
 	ordenado,
+	handleActivated,
 }) {
 	const dispatch = useDispatch();
 	const loading = useSelector((state) => state.loading);
@@ -15,7 +17,7 @@ export default function Filterbutton({
 	const handlerChange = async (event) => {
 		const targetName = event.target.name;
 		const targetValue = event.target.value;
-
+		handleActivated();
 		switch (targetName) {
 			case 'Types':
 				paginado(1);
@@ -40,7 +42,16 @@ export default function Filterbutton({
 		<>
 			{loading ? null : (
 				<div>
-					<select name={name} id={name} onChange={handlerChange}>
+					<select
+						defaultValue={defaultOption}
+						name={name}
+						id={name}
+						onChange={handlerChange}
+					>
+						<option hidden key={defaultOption} value={defaultOption}>
+							{defaultOption}
+						</option>
+
 						<option key={all} value={all}>
 							{all}
 						</option>
