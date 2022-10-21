@@ -109,12 +109,12 @@ const pokeCreate = async (body) => {
 	let newPokemon = await Pokemon.create({
 		name: name.toLowerCase(),
 		pokedex: pokedex++,
-		hp,
-		attack,
-		defense,
-		speed,
-		height,
-		weight,
+		hp: parseInt(hp),
+		attack: parseInt(attack),
+		defense: parseInt(defense),
+		speed: parseInt(speed),
+		height: parseInt(height),
+		weight: parseInt(weight),
 		img,
 	});
 
@@ -123,7 +123,8 @@ const pokeCreate = async (body) => {
 			name: type,
 		},
 	});
-	await newPokemon.addType(pokeType);
+	var typeDb = ([pokeType[0], pokeType[1]] = [pokeType[1], pokeType[0]]);
+	await newPokemon.addType(typeDb);
 	const id = newPokemon.id;
 	return await Pokemon.findByPk(newPokemon.id, {
 		include: {
