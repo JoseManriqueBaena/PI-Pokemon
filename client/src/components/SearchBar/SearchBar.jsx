@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPokemonsName } from '../../redux/actions';
+import style from './SearchBar.module.css';
 
 export default function SearchBar({ paginado }) {
 	const [pokemonName, setPokemonName] = useState('');
@@ -24,14 +25,18 @@ export default function SearchBar({ paginado }) {
 				<div>
 					<form onSubmit={handlerSubmit}>
 						<input
+							className={style.inputSearch}
 							type='text'
 							name='pokemon'
 							id='pokemon'
 							value={pokemonName}
-							placeholder='Search pokemon'
+							placeholder='Search pokemon...'
 							onChange={handlerChange}
+							required
 						/>
-						<button type='submit'>Search</button>
+						<button className={style.buttonSearch} type='submit'>
+							Search
+						</button>
 					</form>
 				</div>
 			)}

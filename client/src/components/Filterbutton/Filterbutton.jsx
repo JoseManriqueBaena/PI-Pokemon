@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { filterTypes, orderFilter, refresh } from '../../redux/actions';
+import { filterTypes, orderFilter, refreshTypes } from '../../redux/actions';
+import style from './Filterbutton.module.css';
 
 export default function Filterbutton({
 	defaultOption,
@@ -22,7 +23,7 @@ export default function Filterbutton({
 			case 'Types':
 				paginado(1);
 				event.target.value === 'All types'
-					? dispatch(refresh())
+					? dispatch(refreshTypes())
 					: dispatch(filterTypes(targetValue));
 				break;
 
@@ -43,6 +44,7 @@ export default function Filterbutton({
 			{loading ? null : (
 				<div>
 					<select
+						className={style.selectButton}
 						defaultValue={defaultOption}
 						name={name}
 						id={name}

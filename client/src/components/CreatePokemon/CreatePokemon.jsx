@@ -81,7 +81,7 @@ export default function CreatePokemon({ history }) {
 		<>
 			<div className={style.mainContainer}>
 				<form onSubmit={handlerSubmit}>
-					<div className={style.imputsContainer}>
+					<div className={style.inputsContainer}>
 						<h2>Create Pokemon</h2>
 						{/* Name */}
 						<div className={`${style.formGroup} ${style.field}`}>

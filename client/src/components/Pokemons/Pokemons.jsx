@@ -45,7 +45,7 @@ export default function Cards({ pokemons }) {
 												);
 												return img;
 										  })
-										: null
+										: undefined
 								}
 								crateInDb={pokemon.crateInDb}
 							/>

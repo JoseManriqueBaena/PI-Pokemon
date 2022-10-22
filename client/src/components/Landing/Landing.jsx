@@ -7,9 +7,12 @@ function Landing(props) {
 		<>
 			<section className={style.mainContainer}>
 				<div className={style.containerInfo}>
-					<h1> Soy una Landing</h1>
+					<img
+						src='https://1000marcas.net/wp-content/uploads/2020/01/Pokemon-Logo.png'
+						alt=''
+					/>
 					<Link to='/home'>
-						<button>Iniciar</button>
+						<button className={style.buttonGo}>Let's go!</button>
 					</Link>
 				</div>
 			</section>

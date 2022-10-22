@@ -9,12 +9,22 @@ function Navbar(props) {
 				<div className={style.mainContainer}>
 					<div>
 						<Link to={'/'}>
-							<img src='' alt='Aun no se nada' />
+							<img
+								src='https://1000marcas.net/wp-content/uploads/2020/01/Pokemon-Logo.png'
+								alt='Aun no se nada'
+							/>
 						</Link>
 					</div>
-					<div>
-						<Link to={'/home'}>Home</Link>
-						<Link to={'/pokecreate'}>Crear pokemon</Link>
+					<div className={style.linksContainer}>
+						<Link className={style.classLink} to={'/home'}>
+							Home
+						</Link>
+						<Link className={style.classLink} to={'/pokecreate'}>
+							Create pokemon
+						</Link>
+						<Link className={style.classLink} to={'/about'}>
+							About
+						</Link>
 					</div>
 				</div>
 			</nav>

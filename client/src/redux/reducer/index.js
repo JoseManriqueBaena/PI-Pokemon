@@ -19,6 +19,7 @@ import {
 	GET_POKEMON_ID,
 	GET_ALL_IMG_TYPES,
 	CREATE_POKEMON,
+	REFRESH_TYPES,
 } from '../actions/index.js';
 
 import {
@@ -36,6 +37,7 @@ import {
 } from './helpers.js';
 
 const initialState = {
+	pokeCache: [],
 	pokemons: [], //ALL
 	pokemonsFiltered: [],
 	pokeDetail: {},
@@ -51,6 +53,7 @@ const reducer = (state = initialState, action) => {
 				...state,
 				loading: false,
 				cache: action.payload,
+				pokeCache: action.payload,
 				pokemons: action.payload,
 				pokemonsFiltered: action.payload,
 			};
@@ -92,11 +95,18 @@ const reducer = (state = initialState, action) => {
 			return {
 				...state,
 				loading: false,
+				pokemons: state.pokeCache,
+				pokemonsFiltered: state.pokeCache,
+			};
+		case REFRESH_TYPES:
+			return {
+				...state,
+				loading: false,
 				pokemonsFiltered: state.pokemons,
 			};
 
 		case EXISTING:
-			const auxFilter = filterExisted(state.pokemons);
+			const auxFilter = filterExisted(state.pokeCache);
 			return {
 				...state,
 				loading: false,
@@ -105,7 +115,7 @@ const reducer = (state = initialState, action) => {
 			};
 
 		case CREATED:
-			const auxFilter2 = filterCreated(state.pokemons);
+			const auxFilter2 = filterCreated(state.pokeCache);
 			return {
 				...state,
 				loading: false,

@@ -15,6 +15,7 @@ export const Z_TO_A = 'Z_TO_A';
 export const MAX_ATTACK = 'MAX_ATTACK';
 export const MIN_ATTACK = 'MIN_ATTACK';
 export const MAX_DEFENSE = 'MAX_DEFENSE';
+export const REFRESH_TYPES = 'REFRESH_TYPES';
 export const MIN_DEFENSE = 'MIN_DEFENSE';
 export const EXISTING = 'EXISTING';
 export const CREATED = 'CREATED';
@@ -68,6 +69,13 @@ export function refresh() {
 	};
 }
 
+export function refreshTypes() {
+	return async function (dispatch) {
+		dispatch(loading());
+		dispatch({ type: REFRESH_TYPES });
+	};
+}
+
 export function filterTypes(type) {
 	return async function (dispatch) {
 		dispatch(loading());
@@ -80,16 +88,14 @@ export function pokemonFilter(filter) {
 		dispatch(loading());
 		switch (filter) {
 			case 'All':
-				dispatch(getAllPokemos());
+				dispatch(refresh());
 				break;
 
 			case 'Existing':
-				await dispatch(getAllPokemos());
 				dispatch({ type: EXISTING });
 				break;
 
 			case 'Created':
-				await dispatch(getAllPokemos());
 				dispatch({ type: CREATED });
 				break;
 
@@ -148,6 +154,12 @@ export function getAllTypes() {
 	};
 }
 
+export function createPokemon(pokemon) {
+	return async function (dispatch) {
+		await axios.post(`http://localhost:3001/pokemons`, pokemon);
+		dispatch({ type: CREATE_POKEMON });
+	};
+}
 export function getAllImgTypes() {
 	return async function (dispatch) {
 		const imgTypes = [
@@ -243,22 +255,13 @@ export function getAllImgTypes() {
 			},
 			{
 				type: 'unknown',
-				url: 'Not image',
 				color: '#c6c69b',
 			},
 			{
 				type: 'shadow',
-				url: 'Not image',
 				color: '#3f3f3f',
 			},
 		];
 		dispatch({ type: GET_ALL_IMG_TYPES, payload: imgTypes });
-	};
-}
-
-export function createPokemon(pokemon) {
-	return async function (dispatch) {
-		await axios.post(`http://localhost:3001/pokemons`, pokemon);
-		dispatch({ type: CREATE_POKEMON });
 	};
 }

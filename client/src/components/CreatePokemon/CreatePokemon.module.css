@@ -9,12 +9,14 @@ input[type='number'] {
 }
 
 :root {
-	--primary: #11998e;
-	--primaryFocus: #19655e;
-	--secondary: #38ef7d;
-	--white: rgb(249, 249, 249);
-	--black: rgb(51, 51, 51);
-	--gray: #a5a5a5;
+	--yellow1: #ffcc00;
+	--yellow2: #d5a100;
+	--blue1: #0075be;
+	--blue2: #0a285f;
+	--redPokeball: #fb1b1b;
+	--white: rgb(250, 250, 250);
+	--black: rgb(30, 30, 30);
+	--gray: #dfdfdf;
 }
 
 .mainContainer {
@@ -28,7 +30,7 @@ input[type='number'] {
 
 /*------------ Inputs --------------*/
 
-.imputsContainer {
+.inputsContainer {
 	height: 800px;
 	width: 600px;
 	display: flex;
@@ -37,12 +39,17 @@ input[type='number'] {
 	align-items: center;
 	row-gap: 12px;
 	/* Glass */
-	background: rgba(255, 255, 255, 0.6);
+	background: rgba(242, 242, 242, 0.6);
 	box-shadow: 0 8px 20px 0 rgba(31, 38, 135, 0.37);
 	backdrop-filter: blur(5px);
 	-webkit-backdrop-filter: blur(5px);
 	border-radius: 10px;
 	border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.inputsContainer h2 {
+	margin-top: 36px;
+	color: var(--blue1);
 }
 
 .formGroup {
@@ -53,10 +60,10 @@ input[type='number'] {
 .formField {
 	width: 100%;
 	border: 0;
-	border-bottom: 2px solid var(--primary);
+	border-bottom: 2px solid var(--blue1);
 	outline: 0;
 	font-size: 18px;
-	color: var(--black);
+	color: var(--blue2);
 	padding: 7px 0;
 	background: transparent;
 	transition: border-color 0.2s;
@@ -65,7 +72,7 @@ input[type='number'] {
 	color: transparent;
 }
 .formField:placeholder-shown ~ .formLabel {
-	color: var(--primary);
+	color: var(--blue1);
 	font-size: 18px;
 	cursor: text;
 	top: 20px;
@@ -76,13 +83,13 @@ input[type='number'] {
 	display: block;
 	transition: 0.2s;
 	font-size: 12px;
-	color: var(--gray);
+	color: var(--blue2);
 }
 .formField:focus {
 	padding-bottom: 6px;
 	font-weight: 600;
 	border-width: 3px;
-	border-image: linear-gradient(to right, var(--primary), var(--secondary));
+	border-image: linear-gradient(to right, var(--blue1), var(--blue2));
 	border-image-slice: 1;
 }
 .formField:focus ~ .formLabel {
@@ -91,47 +98,39 @@ input[type='number'] {
 	display: block;
 	transition: 0.2s;
 	font-size: 14px;
-	color: var(--primary);
+	color: var(--blue1);
 	font-weight: 700;
 }
-
-/* .formField:required,
-.formField:invalid {
-	box-shadow: none;
-} */
 
 /* -------------- Select -------------- */
 
 .customSelect {
+	background: none;
 	display: block;
 	font-size: 16px;
 	font-family: Roboto;
 	font-weight: 400;
 	border-radius: 5px;
-	color: var(--primary);
+	color: var(--blue1);
 	padding: 10px;
 	width: 350px;
 	height: 50px;
 	margin-top: 12px;
-	border: 1px solid var(--primary);
+	border: 1px solid var(--blue1);
 	box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.03);
 	-moz-appearance: none;
 	-webkit-appearance: none;
 	appearance: none;
 	outline: none;
-	background-image: url('../../img/icon_down_arrow.svg');
+	background-image: url('../../img/icon_down_arrow_blue1.svg');
 	background-repeat: no-repeat, repeat;
 	background-position: right 18px top 50%;
 	background-size: 12px auto, 100%;
 }
 
 .customSelect:focus {
-	border: 2px solid var(--primaryFocus);
+	border: 2px solid var(--blue2);
 }
-
-/* select option:hover {
-	background-color: red;
-} */
 
 /* ------------------------------------ */
 
@@ -191,5 +190,5 @@ input[type='number'] {
 	border-radius: 50%;
 	width: 25px;
 	height: 25px;
-	background-color: var(--primaryFocus);
+	background-color: var(--blue2);
 }

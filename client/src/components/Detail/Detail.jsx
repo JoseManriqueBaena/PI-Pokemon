@@ -35,7 +35,7 @@ export default function Detail({ match, history }) {
 		: pokeDetail.types?.map((type) =>
 				imgTypes.find((imgType) => imgType.type === type)
 		  );
-
+	// console.log(images);
 	const handlerClick = () => {
 		shiny ? setShiny(false) : setShiny(true);
 	};
@@ -124,13 +124,15 @@ export default function Detail({ match, history }) {
 											className={style.types}
 											key={`${type.name} ${pokeDetail.id}`}
 										>
-											<img
-												src={
-													images.find((element) => element.type === type.name)
-														.url
-												}
-												alt={type.name}
-											/>
+											{images[0]?.url ? (
+												<img
+													src={
+														images.find((element) => element.type === type.name)
+															.url
+													}
+													alt={type.name}
+												/>
+											) : null}
 											<h3>{type.name}</h3>
 										</div>
 								  ))
