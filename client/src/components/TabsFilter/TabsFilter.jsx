@@ -3,7 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { pokemonFilter } from '../../redux/actions';
 import style from './TabsFilter.module.css';
 
-export default function TabsFilter({ paginado, activated, fnActivated }) {
+export default function TabsFilter({
+	paginado,
+	activated,
+	fnActivated,
+	paginadoActivated,
+}) {
 	// const [activated, setActivated] = useState({
 	// 	All: true,
 	// });
@@ -14,8 +19,9 @@ export default function TabsFilter({ paginado, activated, fnActivated }) {
 		const clicked = event.target.name;
 
 		fnActivated(clicked);
-		dispatch(pokemonFilter(clicked));
+		paginadoActivated();
 		paginado(1);
+		dispatch(pokemonFilter(clicked));
 	};
 
 	return (

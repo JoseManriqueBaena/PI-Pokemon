@@ -33,7 +33,16 @@ function Home() {
 	const pokemonsPerPage = pokemons.slice(firstPokemon, lastPokemon);
 
 	const paginado = (page) => {
+		//Volver a la página
 		setCurrentPage(page);
+	};
+
+	const paginadoActivated = (value = 1) => {
+		//Hover pagina
+		const clicked = value;
+		setActivated({
+			[clicked]: true,
+		});
 	};
 
 	const ordenado = (value) => {
@@ -41,21 +50,15 @@ function Home() {
 	};
 
 	const tabsActivated = (clicked) => {
+		//Hover tabs
 		setActivatedTabs({
-			[clicked]: true,
-		});
-	};
-
-	const handleActivated = (value = 1) => {
-		const clicked = value;
-		setActivated({
 			[clicked]: true,
 		});
 	};
 
 	const handleClick = (event) => {
 		paginado(1);
-		handleActivated(1);
+		paginadoActivated(1);
 		tabsActivated('All');
 		dispatch(refresh());
 		dispatch(orderFilter('Ascending pokedex'));
@@ -75,6 +78,7 @@ function Home() {
 							paginado={paginado}
 							activated={activatedTabs}
 							fnActivated={tabsActivated}
+							paginadoActivated={paginadoActivated}
 						/>
 						<Filterbutton
 							defaultOption={'Select type'}
@@ -83,7 +87,7 @@ function Home() {
 							opciones={allTypes.map((type) => type.name)}
 							paginado={paginado}
 							ordenado={ordenado}
-							handleActivated={handleActivated}
+							paginadoActivated={paginadoActivated}
 						/>
 						<Filterbutton
 							defaultOption={'Select filter'}
@@ -92,7 +96,7 @@ function Home() {
 							opciones={['Descending pokedex', 'A to Z', 'Z to A']}
 							paginado={paginado}
 							ordenado={ordenado}
-							handleActivated={handleActivated}
+							paginadoActivated={paginadoActivated}
 						/>
 
 						<Filterbutton
@@ -102,7 +106,7 @@ function Home() {
 							opciones={['Min attack', 'Max defense', 'Min defense']}
 							paginado={paginado}
 							ordenado={ordenado}
-							handleActivated={handleActivated}
+							paginadoActivated={paginadoActivated}
 						/>
 						<SearchBar paginado={paginado} />
 						{loading ? null : (
@@ -116,7 +120,7 @@ function Home() {
 				{pokemons.length <= 12 ? undefined : (
 					<Pages
 						activated={activated}
-						handleActivated={handleActivated}
+						paginadoActivated={paginadoActivated}
 						maxPokemonsPage={maxPokemonsPage}
 						pokemons={pokemons.length}
 						paginado={paginado}

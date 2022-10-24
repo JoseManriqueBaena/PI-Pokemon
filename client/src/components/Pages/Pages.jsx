@@ -7,13 +7,13 @@ export default function Pages({
 	pokemons,
 	paginado,
 	activated,
-	handleActivated,
+	paginadoActivated,
 }) {
 	const loading = useSelector((state) => state.loading);
 
 	const handlerClick = (event, number) => {
 		paginado(number);
-		handleActivated(event.target.name);
+		paginadoActivated(event.target.name);
 	};
 
 	const pageNumbers = [];

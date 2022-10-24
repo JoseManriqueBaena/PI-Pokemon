@@ -15,11 +15,12 @@
 	font-size: 16px;
 	font-weight: 400;
 	color: var(--black);
-	width: 220px;
+	width: 150px;
 	height: 48px;
 	border-radius: 6px 0 0 6px;
 	border: none;
 	outline: none;
+	transition: ease-in-out, width 0.35s ease-in-out;
 }
 
 .inputSearch::placeholder {
@@ -27,6 +28,7 @@
 }
 
 .inputSearch:focus {
+	width: 220px;
 	font-weight: 500;
 }
 

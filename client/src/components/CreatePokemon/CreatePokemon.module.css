@@ -31,7 +31,7 @@ input[type='number'] {
 /*------------ Inputs --------------*/
 
 .inputsContainer {
-	height: 800px;
+	height: 840px;
 	width: 600px;
 	display: flex;
 	flex-direction: column;
@@ -52,15 +52,82 @@ input[type='number'] {
 	color: var(--blue1);
 }
 
+.inputContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 400px;
+}
+
 .formGroup {
 	position: relative;
 	padding: 15px 0 0;
 	width: 350px;
+	display: flex;
+	justify-content: flex-start;
+	width: 85%;
 }
-.formField {
+
+.burbujaContainer {
+	display: flex;
+	flex-direction: row;
+	margin-left: 12px;
+}
+
+.infoBurbuja {
+	visibility: hidden;
+	position: absolute;
+	display: flex;
+	padding: 12px;
+	background-color: var(--white);
+	color: var(--black);
+	font-size: 16px;
+	box-shadow: 4px 4px 6px rgb(63, 63, 63);
+	border-radius: 8px;
+	width: 250px;
+	height: fit-content;
+	margin-left: 30px;
+	margin-top: 10px;
+}
+
+.imgBurbujaBlue {
+	width: 20px;
+	margin-top: 10px;
+}
+
+.imgBurbujaRed {
+	visibility: hidden;
+	position: absolute;
+	width: 20px;
+	margin-top: 13px;
+}
+
+.infoBurbuja p {
+	margin: 0px;
 	width: 100%;
+	text-align: start;
+}
+
+.burbujaContainer:hover .infoBurbuja {
+	visibility: visible;
+}
+
+.formField {
+	width: 350px;
 	border: 0;
 	border-bottom: 2px solid var(--blue1);
+	outline: 0;
+	font-size: 18px;
+	color: var(--blue2);
+	padding: 7px 0;
+	background: transparent;
+	transition: border-color 0.2s;
+}
+
+.formFieldErrors {
+	width: 350px;
+	border: 0;
+	border-bottom: 2px solid var(--redPokeball);
 	outline: 0;
 	font-size: 18px;
 	color: var(--blue2);
@@ -71,20 +138,34 @@ input[type='number'] {
 .formField::placeholder {
 	color: transparent;
 }
+
+.formFieldErrors::placeholder {
+	color: transparent;
+}
+
 .formField:placeholder-shown ~ .formLabel {
 	color: var(--blue1);
 	font-size: 18px;
 	cursor: text;
 	top: 20px;
 }
+
+.formFieldErrors:placeholder-shown ~ .formLabel {
+	color: var(--blue1);
+	font-size: 18px;
+	cursor: text;
+	top: 20px;
+}
+
 .formLabel {
 	position: absolute;
 	top: 0;
 	display: block;
 	transition: 0.2s;
 	font-size: 12px;
-	color: var(--blue2);
+	color: var(--blue1);
 }
+
 .formField:focus {
 	padding-bottom: 6px;
 	font-weight: 600;
@@ -92,7 +173,26 @@ input[type='number'] {
 	border-image: linear-gradient(to right, var(--blue1), var(--blue2));
 	border-image-slice: 1;
 }
+
+.formFieldErrors:focus {
+	padding-bottom: 6px;
+	font-weight: 600;
+	border-width: 3px;
+	border-image: linear-gradient(to right, var(--redPokeball), #780808);
+	border-image-slice: 1;
+}
+
 .formField:focus ~ .formLabel {
+	position: absolute;
+	top: 0;
+	display: block;
+	transition: 0.2s;
+	font-size: 14px;
+	color: var(--blue1);
+	font-weight: 700;
+}
+
+.formFieldErrors:focus ~ .formLabel {
 	position: absolute;
 	top: 0;
 	display: block;
@@ -192,3 +292,36 @@ input[type='number'] {
 	height: 25px;
 	background-color: var(--blue2);
 }
+
+.buttonCreate {
+	font-family: roboto;
+	font-size: 16px;
+	font-weight: 400;
+	color: var(--white);
+	width: 120px;
+	height: 50px;
+	border: none;
+	border-radius: 6px;
+	background-color: var(--blue1);
+	transition: 0.3s;
+}
+
+.buttonCreate:hover {
+	font-weight: 500;
+	transition: 0.3s;
+	background-color: var(--blue2);
+	color: var(--white);
+}
+
+/* .buttonCreateDisabled {
+	font-family: roboto;
+	font-size: 16px;
+	font-weight: 400;
+	color: var(--white);
+	width: 120px;
+	height: 50px;
+	border: none;
+	border-radius: 6px;
+	background-color: var(--blue1);
+	opacity: 0.5;
+} */

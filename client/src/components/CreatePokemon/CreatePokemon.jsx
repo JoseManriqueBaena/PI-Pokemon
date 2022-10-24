@@ -4,10 +4,34 @@ import { getAllImgTypes, getAllTypes } from '../../redux/actions';
 import { createPokemon } from '../../redux/actions';
 import style from './CreatePokemon.module.css';
 import { capitalize, findInImgTypes } from '../../redux/reducer/helpers';
+import iconQuestionRed from '../../img/icon_question_red.svg';
+import iconQuestionBlue from '../../img/icon_question_blue1.svg';
+
+function validate(input) {
+	let errors = {};
+	if (!input.name) {
+		errors.name = 'Name is required';
+	} else if (input.name.length < 3) {
+		errors.name = 'The name must be greater than two letters';
+	} else if (!/^[a-zA-Z0-9\s]*$/.test(input.name)) {
+		errors.name = 'Name is invalid';
+	}
+
+	if (!input.hp) errors.hp = 'Hp is required';
+	if (!input.attack) errors.attack = 'Attack is required';
+	if (!input.defense) errors.defense = 'Defense is required';
+	if (!input.speed) errors.speed = 'Speed is required';
+	if (!input.height) errors.height = 'Height is required';
+	if (!input.weight) errors.weight = 'Weight is required';
+	if (!input.type.length) errors.type = 'You need to add at least one type';
+
+	return errors;
+}
 
 export default function CreatePokemon({ history }) {
 	const imgTypes = useSelector((state) => state.imgTypes);
-	// console.log(imgTypes);
+
+	const [errors, setErrors] = useState({});
 	const [newPokemon, setNewPokemon] = useState({
 		name: '',
 		hp: '',
@@ -31,9 +55,10 @@ export default function CreatePokemon({ history }) {
 	const handlerChange = (event) => {
 		const nameProp = event.target.name;
 		let valueProp = event.target.value;
+		setErrors(validate({ ...newPokemon, [nameProp]: valueProp }));
 		setNewPokemon({ ...newPokemon, [nameProp]: valueProp });
 	};
-
+	// console.log(errors, Object.values(errors).length);
 	const handlerChangeSelect = (event) => {
 		const valueProp = event.target.value;
 		if (newPokemon?.type?.length < 2) {
@@ -84,116 +109,474 @@ export default function CreatePokemon({ history }) {
 					<div className={style.inputsContainer}>
 						<h2>Create Pokemon</h2>
 						{/* Name */}
-						<div className={`${style.formGroup} ${style.field}`}>
-							<input
-								type='text'
-								className={style.formField}
-								placeholder='name'
-								onChange={handlerChange}
-								value={newPokemon.name}
-								name='name'
-								id='name'
-								autoComplete='off'
-								required
-							/>
-							<label className={style.formLabel}>Name</label>
+						<div className={style.inputContainer}>
+							<div className={`${style.formGroup} ${style.field}`}>
+								<input
+									type='text'
+									className={
+										errors.name ? style.formFieldErrors : style.formField
+									}
+									placeholder='name'
+									onChange={handlerChange}
+									value={newPokemon.name}
+									name='name'
+									id='name'
+									autoComplete='off'
+									required
+								/>
+								<label
+									className={style.formLabel}
+									style={
+										errors.name
+											? { color: 'var(--redPokeball)' }
+											: { color: 'var(--blue1)' }
+									}
+								>
+									Name
+								</label>
+								{/* Burbujas */}
+								<div className={style.burbujaContainer}>
+									<img
+										className={style.imgBurbujaBlue}
+										style={
+											errors.name
+												? { visibility: 'hidden' }
+												: { visibility: 'visible' }
+										}
+										src={iconQuestionBlue}
+										alt={'iconQuestionBlue'}
+									/>
+									<img
+										className={style.imgBurbujaRed}
+										style={
+											errors.name
+												? { visibility: 'visible' }
+												: { visibility: 'hidden' }
+										}
+										src={iconQuestionRed}
+										alt={'iconQuestionRed'}
+									/>
+
+									<div
+										className={style.infoBurbuja}
+										style={
+											errors.name
+												? { border: '2px solid var(--redPokeball)' }
+												: { border: 'none' }
+										}
+									>
+										<p>
+											Name is required. <br /> Can have letters and numbers.
+											<br /> Must have at least three characters.
+										</p>
+									</div>
+								</div>
+							</div>
 						</div>
 						{/* Hp */}
-						<div className={`${style.formGroup} ${style.field}`}>
-							<input
-								type='number'
-								className={style.formField}
-								placeholder='Hp'
-								onChange={handlerChange}
-								value={newPokemon.hp}
-								name='hp'
-								id='hp'
-								required
-							/>
-							<label className={style.formLabel}>Hp</label>
+						<div className={style.inputContainer}>
+							<div className={`${style.formGroup} ${style.field}`}>
+								<input
+									type='number'
+									// onKeyDown={(event) => console.log(event.which !== 69)}
+									className={
+										errors.hp ? style.formFieldErrors : style.formField
+									}
+									placeholder='Hp'
+									onChange={handlerChange}
+									value={newPokemon.hp}
+									name='hp'
+									id='hp'
+									required
+								/>
+								<label
+									className={style.formLabel}
+									style={
+										errors.hp
+											? { color: 'var(--redPokeball)' }
+											: { color: 'var(--blue1)' }
+									}
+								>
+									Hp
+								</label>
+								{/* Burbujas */}
+								<div className={style.burbujaContainer}>
+									<img
+										className={style.imgBurbujaBlue}
+										style={
+											errors.hp
+												? { visibility: 'hidden' }
+												: { visibility: 'visible' }
+										}
+										src={iconQuestionBlue}
+										alt={'iconQuestionBlue'}
+									/>
+									<img
+										className={style.imgBurbujaRed}
+										style={
+											errors.hp
+												? { visibility: 'visible' }
+												: { visibility: 'hidden' }
+										}
+										src={iconQuestionRed}
+										alt={'iconQuestionRed'}
+									/>
+
+									<div
+										className={style.infoBurbuja}
+										style={
+											errors.hp
+												? { border: '2px solid var(--redPokeball)' }
+												: { border: 'none' }
+										}
+									>
+										<p>
+											Hp is required. <br /> Can only contain numbers.
+										</p>
+									</div>
+								</div>
+							</div>
 						</div>
 						{/* Attack */}
-						<div className={`${style.formGroup} ${style.field}`}>
-							<input
-								type='number'
-								className={style.formField}
-								placeholder='Attack'
-								onChange={handlerChange}
-								value={newPokemon.attack}
-								name='attack'
-								id='attack'
-								required
-							/>
-							<label className={style.formLabel}>Attack</label>
+						<div className={style.inputContainer}>
+							<div className={`${style.formGroup} ${style.field}`}>
+								<input
+									type='number'
+									className={
+										errors.attack ? style.formFieldErrors : style.formField
+									}
+									placeholder='Attack'
+									onChange={handlerChange}
+									value={newPokemon.attack}
+									name='attack'
+									id='attack'
+									required
+								/>
+								<label
+									className={style.formLabel}
+									style={
+										errors.attack
+											? { color: 'var(--redPokeball)' }
+											: { color: 'var(--blue1)' }
+									}
+								>
+									Attack
+								</label>
+								{/* Burbujas */}
+								<div className={style.burbujaContainer}>
+									<img
+										className={style.imgBurbujaBlue}
+										style={
+											errors.attack
+												? { visibility: 'hidden' }
+												: { visibility: 'visible' }
+										}
+										src={iconQuestionBlue}
+										alt={'iconQuestionBlue'}
+									/>
+									<img
+										className={style.imgBurbujaRed}
+										style={
+											errors.attack
+												? { visibility: 'visible' }
+												: { visibility: 'hidden' }
+										}
+										src={iconQuestionRed}
+										alt={'iconQuestionRed'}
+									/>
+
+									<div
+										className={style.infoBurbuja}
+										style={
+											errors.attack
+												? { border: '2px solid var(--redPokeball)' }
+												: { border: 'none' }
+										}
+									>
+										<p>
+											Attack is required. <br /> Can only contain numbers.
+										</p>
+									</div>
+								</div>
+							</div>
 						</div>
 						{/* Defense */}
-						<div className={`${style.formGroup} ${style.field}`}>
-							<input
-								type='number'
-								className={style.formField}
-								placeholder='Defense'
-								onChange={handlerChange}
-								value={newPokemon.defense}
-								name='defense'
-								id='defense'
-								required
-							/>
-							<label className={style.formLabel}>Defense</label>
+						<div className={style.inputContainer}>
+							<div className={`${style.formGroup} ${style.field}`}>
+								<input
+									type='number'
+									className={
+										errors.defense ? style.formFieldErrors : style.formField
+									}
+									placeholder='Defense'
+									onChange={handlerChange}
+									value={newPokemon.defense}
+									name='defense'
+									id='defense'
+									required
+								/>
+								<label
+									className={style.formLabel}
+									style={
+										errors.defense
+											? { color: 'var(--redPokeball)' }
+											: { color: 'var(--blue1)' }
+									}
+								>
+									Defense
+								</label>
+								{/* Burbujas */}
+								<div className={style.burbujaContainer}>
+									<img
+										className={style.imgBurbujaBlue}
+										style={
+											errors.defense
+												? { visibility: 'hidden' }
+												: { visibility: 'visible' }
+										}
+										src={iconQuestionBlue}
+										alt={'iconQuestionBlue'}
+									/>
+									<img
+										className={style.imgBurbujaRed}
+										style={
+											errors.defense
+												? { visibility: 'visible' }
+												: { visibility: 'hidden' }
+										}
+										src={iconQuestionRed}
+										alt={'iconQuestionRed'}
+									/>
+
+									<div
+										className={style.infoBurbuja}
+										style={
+											errors.defense
+												? { border: '2px solid var(--redPokeball)' }
+												: { border: 'none' }
+										}
+									>
+										<p>
+											Defense is required. <br /> Can only contain numbers.
+										</p>
+									</div>
+								</div>
+							</div>
 						</div>
 						{/* Speed */}
-						<div className={`${style.formGroup} ${style.field}`}>
-							<input
-								type='number'
-								className={style.formField}
-								placeholder='Speed'
-								onChange={handlerChange}
-								value={newPokemon.speed}
-								name='speed'
-								id='speed'
-								required
-							/>
-							<label className={style.formLabel}>Speed</label>
+						<div className={style.inputContainer}>
+							<div className={`${style.formGroup} ${style.field}`}>
+								<input
+									type='number'
+									className={
+										errors.speed ? style.formFieldErrors : style.formField
+									}
+									placeholder='Speed'
+									onChange={handlerChange}
+									value={newPokemon.speed}
+									name='speed'
+									id='speed'
+									required
+								/>
+								<label
+									className={style.formLabel}
+									style={
+										errors.speed
+											? { color: 'var(--redPokeball)' }
+											: { color: 'var(--blue1)' }
+									}
+								>
+									Speed
+								</label>
+								{/* Burbujas */}
+								<div className={style.burbujaContainer}>
+									<img
+										className={style.imgBurbujaBlue}
+										style={
+											errors.speed
+												? { visibility: 'hidden' }
+												: { visibility: 'visible' }
+										}
+										src={iconQuestionBlue}
+										alt={'iconQuestionBlue'}
+									/>
+									<img
+										className={style.imgBurbujaRed}
+										style={
+											errors.speed
+												? { visibility: 'visible' }
+												: { visibility: 'hidden' }
+										}
+										src={iconQuestionRed}
+										alt={'iconQuestionRed'}
+									/>
+
+									<div
+										className={style.infoBurbuja}
+										style={
+											errors.speed
+												? { border: '2px solid var(--redPokeball)' }
+												: { border: 'none' }
+										}
+									>
+										<p>
+											Speed is required. <br /> Can only contain numbers.
+										</p>
+									</div>
+								</div>
+							</div>
 						</div>
 						{/* Height */}
-						<div className={`${style.formGroup} ${style.field}`}>
-							<input
-								type='number'
-								className={style.formField}
-								placeholder='Height'
-								onChange={handlerChange}
-								value={newPokemon.height}
-								name='height'
-								id='height'
-								required
-							/>
-							<label className={style.formLabel}>Height</label>
+						<div className={style.inputContainer}>
+							<div className={`${style.formGroup} ${style.field}`}>
+								<input
+									type='number'
+									className={
+										errors.height ? style.formFieldErrors : style.formField
+									}
+									placeholder='Height'
+									onChange={handlerChange}
+									value={newPokemon.height}
+									name='height'
+									id='height'
+									required
+								/>
+								<label
+									className={style.formLabel}
+									style={
+										errors.height
+											? { color: 'var(--redPokeball)' }
+											: { color: 'var(--blue1)' }
+									}
+								>
+									Height
+								</label>
+								{/* Burbujas */}
+								<div className={style.burbujaContainer}>
+									<img
+										className={style.imgBurbujaBlue}
+										style={
+											errors.height
+												? { visibility: 'hidden' }
+												: { visibility: 'visible' }
+										}
+										src={iconQuestionBlue}
+										alt={'iconQuestionBlue'}
+									/>
+									<img
+										className={style.imgBurbujaRed}
+										style={
+											errors.height
+												? { visibility: 'visible' }
+												: { visibility: 'hidden' }
+										}
+										src={iconQuestionRed}
+										alt={'iconQuestionRed'}
+									/>
+
+									<div
+										className={style.infoBurbuja}
+										style={
+											errors.height
+												? { border: '2px solid var(--redPokeball)' }
+												: { border: 'none' }
+										}
+									>
+										<p>
+											Height is required. <br /> Can only contain numbers.
+										</p>
+									</div>
+								</div>
+							</div>
 						</div>
 						{/* Weight */}
-						<div className={`${style.formGroup} ${style.field}`}>
-							<input
-								type='number'
-								className={style.formField}
-								placeholder='Weight'
-								onChange={handlerChange}
-								value={newPokemon.weight}
-								name='weight'
-								id='weight'
-								required
-							/>
-							<label className={style.formLabel}>Weight</label>
+						<div className={style.inputContainer}>
+							<div className={`${style.formGroup} ${style.field}`}>
+								<input
+									type='number'
+									className={
+										errors.weight ? style.formFieldErrors : style.formField
+									}
+									placeholder='Weight'
+									onChange={handlerChange}
+									value={newPokemon.weight}
+									name='weight'
+									id='weight'
+									required
+								/>
+								<label
+									className={style.formLabel}
+									style={
+										errors.weight
+											? { color: 'var(--redPokeball)' }
+											: { color: 'var(--blue1)' }
+									}
+								>
+									Weight
+								</label>
+								{/* Burbujas */}
+								<div className={style.burbujaContainer}>
+									<img
+										className={style.imgBurbujaBlue}
+										style={
+											errors.weight
+												? { visibility: 'hidden' }
+												: { visibility: 'visible' }
+										}
+										src={iconQuestionBlue}
+										alt={'iconQuestionBlue'}
+									/>
+									<img
+										className={style.imgBurbujaRed}
+										style={
+											errors.weight
+												? { visibility: 'visible' }
+												: { visibility: 'hidden' }
+										}
+										src={iconQuestionRed}
+										alt={'iconQuestionRed'}
+									/>
+
+									<div
+										className={style.infoBurbuja}
+										style={
+											errors.weight
+												? { border: '2px solid var(--redPokeball)' }
+												: { border: 'none' }
+										}
+									>
+										<p>
+											Weight is required. <br /> Can only contain numbers.
+										</p>
+									</div>
+								</div>
+							</div>
 						</div>
 						{/* Image */}
-						<div className={`${style.formGroup} ${style.field}`}>
-							<input
-								type='text'
-								className={style.formField}
-								placeholder='Image'
-								onChange={handlerChange}
-								value={newPokemon.img}
-								name='img'
-								id='img'
-							/>
-							<label className={style.formLabel}>Image</label>
+						<div className={style.inputContainer}>
+							<div className={`${style.formGroup} ${style.field}`}>
+								<input
+									type='text'
+									className={style.formField}
+									placeholder='Image'
+									onChange={handlerChange}
+									value={newPokemon.img}
+									name='img'
+									id='img'
+								/>
+								<label className={style.formLabel}>Image</label>
+								<div className={style.burbujaContainer}>
+									<img
+										className={style.imgBurbujaBlue}
+										src={iconQuestionBlue}
+										alt={'iconQuestionBlue'}
+									/>
+
+									<div className={style.infoBurbuja}>
+										<p>Url of the image you want for your pokemon.</p>
+									</div>
+								</div>
+							</div>
 						</div>
 
 						<select
@@ -246,7 +629,9 @@ export default function CreatePokemon({ history }) {
 							))}
 						</div>
 
-						<button type='submit'>Create</button>
+						<button className={style.buttonCreate} type='submit'>
+							Create
+						</button>
 					</div>
 				</form>
 			</div>

@@ -11,7 +11,9 @@ export default function NotFound() {
 						src='https://i.gifer.com/XJ1C.gif'
 						alt='Not Found'
 					/>
-					<h1 className={style.title}>404 POKEMONS NOT FOUND</h1>
+					<h1 className={style.title}>
+						404 POKEMONS <br /> NOT FOUND
+					</h1>
 				</div>
 			</div>
 		</>

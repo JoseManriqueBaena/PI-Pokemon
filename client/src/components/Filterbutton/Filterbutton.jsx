@@ -10,7 +10,7 @@ export default function Filterbutton({
 	opciones,
 	paginado,
 	ordenado,
-	handleActivated,
+	paginadoActivated,
 }) {
 	const dispatch = useDispatch();
 	const loading = useSelector((state) => state.loading);
@@ -18,7 +18,7 @@ export default function Filterbutton({
 	const handlerChange = async (event) => {
 		const targetName = event.target.name;
 		const targetValue = event.target.value;
-		handleActivated();
+		paginadoActivated();
 		switch (targetName) {
 			case 'Types':
 				paginado(1);
