@@ -31,7 +31,7 @@ export function loading() {
 export function getAllPokemos() {
 	return async function (dispatch) {
 		dispatch(loading());
-		const response = await axios.get(`http://localhost:3001/pokemons`);
+		const response = await axios.get(`/pokemons`);
 		dispatch({ type: GET_ALL_POKEMONS, payload: response.data });
 	};
 }
@@ -40,9 +40,7 @@ export function getPokemonsName(name) {
 	return async function (dispatch) {
 		dispatch(loading());
 		try {
-			const response = await axios.get(
-				`http://localhost:3001/pokemons?name=${name}`
-			);
+			const response = await axios.get(`/pokemons?name=${name}`);
 			dispatch({ type: GET_POKEMONS_NAME, payload: response.data });
 		} catch (error) {
 			dispatch({ type: POKEMONS_NOT_FOUND });
@@ -54,7 +52,7 @@ export function getPokemonId(id) {
 	return async function (dispatch) {
 		dispatch(loading());
 		try {
-			const response = await axios.get(`http://localhost:3001/pokemons/${id}`);
+			const response = await axios.get(`/pokemons/${id}`);
 			dispatch({ type: GET_POKEMON_ID, payload: response.data });
 		} catch (error) {
 			dispatch({ type: POKEMONS_NOT_FOUND });
@@ -149,14 +147,14 @@ export function orderFilter(order) {
 
 export function getAllTypes() {
 	return async function (dispatch) {
-		const response = await axios.get(`http://localhost:3001/types`);
+		const response = await axios.get(`/types`);
 		dispatch({ type: GET_ALL_TYPES, payload: response.data });
 	};
 }
 
 export function createPokemon(pokemon) {
 	return async function (dispatch) {
-		await axios.post(`http://localhost:3001/pokemons`, pokemon);
+		await axios.post(`/pokemons`, pokemon);
 		dispatch({ type: CREATE_POKEMON });
 	};
 }

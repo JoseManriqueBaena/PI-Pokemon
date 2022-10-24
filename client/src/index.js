@@ -1,11 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import axios from 'axios';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './redux/store/index';
+import dotenv from 'dotenv';
+dotenv.config();
+
+const { BACK_END_LOCAL, HOST, PORT } = process.env;
+
+axios.defaults.baseURL = process.env.BACK_END_DEPLOY || `http://localhost:3001`;
 
 ReactDOM.render(
 	<Provider store={store}>

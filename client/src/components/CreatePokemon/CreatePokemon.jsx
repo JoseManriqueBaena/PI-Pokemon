@@ -84,7 +84,7 @@ export default function CreatePokemon({ history }) {
 
 	const handlerSubmit = (event) => {
 		event.preventDefault();
-		console.log(newPokemon);
+
 		dispatch(createPokemon(newPokemon));
 		alert('Created pokemon');
 		setNewPokemon({
