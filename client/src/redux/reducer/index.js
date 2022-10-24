@@ -37,8 +37,8 @@ import {
 } from './helpers.js';
 
 const initialState = {
-	pokeCache: [],
-	pokemons: [], //ALL
+	pokeCache: [], //ALL
+	pokemons: [],
 	pokemonsFiltered: [],
 	pokeDetail: {},
 	types: [],

@@ -14,7 +14,6 @@ export default function Cards({ pokemons }) {
 	useEffect(() => {
 		dispatch(getAllImgTypes());
 	}, []);
-
 	return (
 		<>
 			<div>

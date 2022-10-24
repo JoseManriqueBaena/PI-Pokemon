@@ -10,20 +10,20 @@ import iconQuestionBlue from '../../img/icon_question_blue1.svg';
 function validate(input) {
 	let errors = {};
 	if (!input.name) {
-		errors.name = 'Name is required';
+		errors.name = true;
 	} else if (input.name.length < 3) {
-		errors.name = 'The name must be greater than two letters';
+		errors.name = true;
 	} else if (!/^[a-zA-Z0-9\s]*$/.test(input.name)) {
-		errors.name = 'Name is invalid';
+		errors.name = true;
 	}
 
-	if (!input.hp) errors.hp = 'Hp is required';
-	if (!input.attack) errors.attack = 'Attack is required';
-	if (!input.defense) errors.defense = 'Defense is required';
-	if (!input.speed) errors.speed = 'Speed is required';
-	if (!input.height) errors.height = 'Height is required';
-	if (!input.weight) errors.weight = 'Weight is required';
-	if (!input.type.length) errors.type = 'You need to add at least one type';
+	if (!input.hp) errors.hp = true;
+	if (!input.attack) errors.attack = true;
+	if (!input.defense) errors.defense = true;
+	if (!input.speed) errors.speed = true;
+	if (!input.height) errors.height = true;
+	if (!input.weight) errors.weight = true;
+	if (input.type.length === 0) errors.type = true;
 
 	return errors;
 }
@@ -31,7 +31,9 @@ function validate(input) {
 export default function CreatePokemon({ history }) {
 	const imgTypes = useSelector((state) => state.imgTypes);
 
-	const [errors, setErrors] = useState({});
+	const [errors, setErrors] = useState({
+		inicial: true,
+	});
 	const [newPokemon, setNewPokemon] = useState({
 		name: '',
 		hp: '',
@@ -55,10 +57,10 @@ export default function CreatePokemon({ history }) {
 	const handlerChange = (event) => {
 		const nameProp = event.target.name;
 		let valueProp = event.target.value;
-		setErrors(validate({ ...newPokemon, [nameProp]: valueProp }));
 		setNewPokemon({ ...newPokemon, [nameProp]: valueProp });
+		setErrors(validate({ ...newPokemon, [nameProp]: valueProp }));
 	};
-	// console.log(errors, Object.values(errors).length);
+
 	const handlerChangeSelect = (event) => {
 		const valueProp = event.target.value;
 		if (newPokemon?.type?.length < 2) {
@@ -68,6 +70,13 @@ export default function CreatePokemon({ history }) {
 				...newPokemon,
 				type: [...newPokemon.type, valueProp],
 			});
+
+			setErrors(
+				validate({
+					...newPokemon,
+					type: [...newPokemon.type, valueProp],
+				})
+			);
 		} else {
 			alert('No se puede agregar más de dos tipos');
 		}
@@ -75,6 +84,7 @@ export default function CreatePokemon({ history }) {
 
 	const handlerSubmit = (event) => {
 		event.preventDefault();
+		console.log(newPokemon);
 		dispatch(createPokemon(newPokemon));
 		alert('Created pokemon');
 		setNewPokemon({
@@ -100,6 +110,12 @@ export default function CreatePokemon({ history }) {
 			...newPokemon,
 			type: filterTypes,
 		});
+		setErrors(
+			validate({
+				...newPokemon,
+				type: filterTypes,
+			})
+		);
 	};
 
 	return (
@@ -580,7 +596,9 @@ export default function CreatePokemon({ history }) {
 						</div>
 
 						<select
-							className={style.customSelect}
+							className={
+								errors.type ? style.customSelectError : style.customSelect
+							}
 							defaultValue={'default'}
 							name={'type'}
 							id={'type'}
@@ -628,8 +646,15 @@ export default function CreatePokemon({ history }) {
 								</div>
 							))}
 						</div>
-
-						<button className={style.buttonCreate} type='submit'>
+						<button
+							disabled={Object.values(errors).length === 0 ? false : true}
+							className={
+								Object.values(errors).length === 0
+									? style.buttonCreate
+									: style.buttonCreateDisabled
+							}
+							type='submit'
+						>
 							Create
 						</button>
 					</div>

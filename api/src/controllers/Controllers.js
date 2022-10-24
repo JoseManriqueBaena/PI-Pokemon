@@ -40,6 +40,23 @@ const getPokemonDb = async () => {
 			},
 		},
 	});
+	const pokemonsDb = pokeInfoDb.map((pokemon) => {
+		return {
+			id: pokemon.id,
+			name: pokemon.name,
+			pokedex: pokemon.pokedex,
+			hp: pokemon.hp,
+			attack: pokemon.attack,
+			defense: pokemon.defense,
+			speed: pokemon.speed,
+			height: pokemon.height,
+			weight: pokemon.weight,
+			img: pokemon.img,
+			crateInDb: pokemon.crateInDb,
+			Types: pokemon.Types.map((type) => type.name),
+		};
+	});
+	console.log(pokemonsDb);
 	return pokeInfoDb;
 };
 
@@ -76,7 +93,13 @@ const typesInDb = async () => {
 			name: type.name,
 		};
 	});
-	await Type.bulkCreate(pokeInfo);
+
+	pokeInfo.forEach((pokemonType) => {
+		Type.findOrCreate({
+			where: pokemonType,
+		});
+	});
+	// await Type.bulkCreate(pokeInfo);
 	const dbTypes = await Type.findAll();
 	return dbTypes;
 };
@@ -125,9 +148,20 @@ const pokeCreate = async (body) => {
 			name: type,
 		},
 	});
-	var typeDb = ([pokeType[0], pokeType[1]] = [pokeType[1], pokeType[0]]);
-	await newPokemon.addType(typeDb);
-	const id = newPokemon.id;
+
+	let typesDb;
+	if (type.length === 2) {
+		if (pokeType[0].dataValues.name !== type[0]) {
+			typesDb = [pokeType[0], pokeType[1]] = [pokeType[1], pokeType[0]];
+		} else {
+			typesDb = pokeType;
+		}
+	} else {
+		typesDb = pokeType;
+	}
+
+	await newPokemon.addType(typesDb);
+
 	return await Pokemon.findByPk(newPokemon.id, {
 		include: {
 			model: Type,
