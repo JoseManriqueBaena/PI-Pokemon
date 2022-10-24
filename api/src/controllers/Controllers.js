@@ -1,7 +1,7 @@
 const axios = require('axios');
 const { Pokemon, Type } = require('../db');
 
-const ulr40Pokemon = 'https://pokeapi.co/api/v2/pokemon?limit=40&offset=0';
+const ulr40Pokemon = 'https://pokeapi.co/api/v2/pokemon?limit=151&offset=0';
 
 const getPokemonsApi = async () => {
 	const pokemonApiUrl = await axios.get(ulr40Pokemon);
@@ -115,7 +115,9 @@ const pokeCreate = async (body) => {
 		speed: parseInt(speed),
 		height: parseInt(height),
 		weight: parseInt(weight),
-		img,
+		img: img
+			? img
+			: 'https://assets.pokemon.com/static2/_ui/img/og-default-image.jpeg',
 	});
 
 	const pokeType = await Type.findAll({
