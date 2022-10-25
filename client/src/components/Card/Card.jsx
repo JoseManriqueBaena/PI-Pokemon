@@ -21,15 +21,15 @@ function Card({
 }) {
 	let color1 = imgDbPokemon
 		? imgDbPokemon[0].color
-		: typesImg
-		? typesImg[0].color
-		: undefined;
+		: typesImg && typesImg[0].color;
 
-	let color2 = imgDbPokemon
-		? imgDbPokemon[1]?.color
-		: typesImg[1]
-		? typesImg[1].color
-		: '#F0F0F0';
+	let color2;
+
+	if (imgDbPokemon) {
+		color2 = imgDbPokemon[1] ? imgDbPokemon[1].color : '#F0F0F0';
+	} else {
+		color2 = typesImg[1] ? typesImg[1].color : '#F0F0F0';
+	}
 
 	return (
 		<>

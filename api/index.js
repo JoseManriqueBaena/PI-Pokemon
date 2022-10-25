@@ -23,7 +23,7 @@ const { typesInDb } = require('./src/controllers/Controllers');
 const { PORT } = process.env;
 
 // Syncing all the models at once.
-conn.sync({ force: true }).then(() => {
+conn.sync({ force: false }).then(() => {
 	typesInDb(),
 		server.listen(PORT, () => {
 			console.log(`%s listening at ${PORT}`); // eslint-disable-line no-console

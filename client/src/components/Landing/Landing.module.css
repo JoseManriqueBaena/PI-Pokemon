@@ -30,13 +30,6 @@
 	align-items: center;
 	height: 400px;
 	width: 600px;
-	/* Glass */
-	/* background: rgba(255, 255, 255, 0.2);
-	box-shadow: 0 8px 20px 0 rgba(31, 38, 135, 0.37);
-	backdrop-filter: blur(2px);
-	-webkit-backdrop-filter: blur(2px);
-	border-radius: 10px;
-	border: 1px solid rgba(255, 255, 255, 0.18); */
 }
 
 .containerInfo img {
@@ -55,6 +48,7 @@
 	width: 350px;
 	transition: 0.3s;
 	box-shadow: 5px 5px 8px #3b3b3b;
+	cursor: pointer;
 }
 
 .buttonGo:hover {

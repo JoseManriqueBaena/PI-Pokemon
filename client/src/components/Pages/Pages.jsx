@@ -8,6 +8,10 @@ export default function Pages({
 	paginado,
 	activated,
 	paginadoActivated,
+	currentPage,
+	maxPages,
+	nextPage,
+	prevPage,
 }) {
 	const loading = useSelector((state) => state.loading);
 
@@ -26,6 +30,18 @@ export default function Pages({
 		<>
 			{loading ? null : (
 				<div className={style.mainContainer}>
+					<button
+						className={
+							currentPage > 1
+								? style.prevNextButton
+								: style.prevNextButtonDisabled
+						}
+						disabled={currentPage > 1 ? false : true}
+						type='button'
+						onClick={prevPage}
+					>
+						Prev
+					</button>
 					<ul className={style.uList}>
 						{pageNumbers?.map((number) => (
 							<li key={number} className={style.numberPage}>
@@ -41,6 +57,18 @@ export default function Pages({
 							</li>
 						))}
 					</ul>
+					<button
+						className={
+							currentPage < maxPages
+								? style.prevNextButton
+								: style.prevNextButtonDisabled
+						}
+						disabled={currentPage < maxPages ? false : true}
+						type='button'
+						onClick={nextPage}
+					>
+						Next
+					</button>
 				</div>
 			)}
 		</>

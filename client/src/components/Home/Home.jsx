@@ -32,25 +32,41 @@ function Home() {
 	const firstPokemon = lastPokemon - maxPokemonsPage;
 	const pokemonsPerPage = pokemons.slice(firstPokemon, lastPokemon);
 
+	//Volver a la página
 	const paginado = (page) => {
-		//Volver a la página
 		setCurrentPage(page);
 	};
 
+	//Hover pagina
 	const paginadoActivated = (value = 1) => {
-		//Hover pagina
 		const clicked = value;
 		setActivated({
 			[clicked]: true,
 		});
 	};
 
+	let maxPages = Math.ceil(pokemons.length / maxPokemonsPage);
+
+	const nextPage = () => {
+		if (currentPage < maxPages) {
+			setCurrentPage(currentPage + 1);
+			paginadoActivated(currentPage + 1);
+		}
+	};
+
+	const prevPage = () => {
+		if (currentPage > 1) {
+			setCurrentPage(currentPage - 1);
+			paginadoActivated(currentPage - 1);
+		}
+	};
+
 	const ordenado = (value) => {
 		setOrder(`Ordenado ${value}`);
 	};
 
+	//Hover tabs
 	const tabsActivated = (clicked) => {
-		//Hover tabs
 		setActivatedTabs({
 			[clicked]: true,
 		});
@@ -124,6 +140,10 @@ function Home() {
 						maxPokemonsPage={maxPokemonsPage}
 						pokemons={pokemons.length}
 						paginado={paginado}
+						currentPage={currentPage}
+						maxPages={maxPages}
+						nextPage={nextPage}
+						prevPage={prevPage}
 					/>
 				)}
 			</div>

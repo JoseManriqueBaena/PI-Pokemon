@@ -93,6 +93,7 @@ input[type='number'] {
 .imgBurbujaBlue {
 	width: 20px;
 	margin-top: 10px;
+	cursor: help;
 }
 
 .imgBurbujaRed {
@@ -100,6 +101,7 @@ input[type='number'] {
 	position: absolute;
 	width: 20px;
 	margin-top: 13px;
+	cursor: help;
 }
 
 .infoBurbuja p {
@@ -226,6 +228,7 @@ input[type='number'] {
 	background-repeat: no-repeat, repeat;
 	background-position: right 18px top 50%;
 	background-size: 12px auto, 100%;
+	cursor: pointer;
 }
 
 .customSelectError {
@@ -250,6 +253,7 @@ input[type='number'] {
 	background-repeat: no-repeat, repeat;
 	background-position: right 18px top 50%;
 	background-size: 12px auto, 100%;
+	cursor: pointer;
 }
 
 .customSelect:focus {
@@ -311,6 +315,7 @@ input[type='number'] {
 	border-radius: 50%;
 	font-size: 18px;
 	transition: 0.3s;
+	cursor: pointer;
 }
 
 .buttonX:hover {
@@ -332,6 +337,7 @@ input[type='number'] {
 	border-radius: 6px;
 	background-color: var(--blue1);
 	transition: 0.3s;
+	cursor: pointer;
 }
 
 .buttonCreate:hover {

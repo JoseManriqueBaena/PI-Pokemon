@@ -37,6 +37,7 @@
 	border-radius: 6px;
 	background-color: var(--yellow1);
 	transition: 0.3s;
+	cursor: pointer;
 }
 
 .buttonRefresh:hover {

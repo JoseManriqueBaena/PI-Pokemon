@@ -13,6 +13,7 @@
 	display: flex;
 	justify-content: center;
 	margin-bottom: 24px;
+	column-gap: 12px;
 }
 
 .uList {
@@ -34,6 +35,11 @@
 	width: 40px;
 	height: 40px;
 	transition: 0.5s;
+	cursor: pointer;
+}
+
+.aNumber:hover {
+	background-color: var(--yellow2);
 }
 
 .active {
@@ -48,4 +54,32 @@
 	width: 40px;
 	height: 40px;
 	transition: 0.5s;
+}
+
+.prevNextButton {
+	color: var(--black);
+	font-size: 16px;
+	border-radius: 5px;
+	border: none;
+	background-color: var(--yellow1);
+	width: 80px;
+	height: 40px;
+	transition: 0.5s;
+	cursor: pointer;
+}
+
+.prevNextButtonDisabled {
+	color: var(--black);
+	font-size: 16px;
+	border-radius: 5px;
+	border: none;
+	background-color: var(--yellow1);
+	width: 80px;
+	height: 40px;
+	transition: 0.5s;
+	opacity: 0.5;
+}
+
+.prevNextButton:hover {
+	background-color: var(--yellow2);
 }

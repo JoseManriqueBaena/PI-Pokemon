@@ -9,9 +9,6 @@ export default function TabsFilter({
 	fnActivated,
 	paginadoActivated,
 }) {
-	// const [activated, setActivated] = useState({
-	// 	All: true,
-	// });
 	const dispatch = useDispatch();
 	const loading = useSelector((state) => state.loading);
 

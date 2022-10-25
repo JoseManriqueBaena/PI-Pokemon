@@ -5,12 +5,11 @@ import { Route } from 'react-router-dom';
 import NavBar from './components/NavBar/NavBar';
 import Detail from './components/Detail/Detail';
 import CreatePokemon from './components/CreatePokemon/CreatePokemon.jsx';
-// import Loading from './components/Loading/Loading';
+import About from './components/About/About';
 
 function App() {
 	return (
 		<div className='App'>
-			{/* <Route path={'/loading'} component={Loading} /> */}
 			<Route path={'/home'} component={NavBar} />
 			<Route path={'/pokecreate'} component={NavBar} />
 			<Route path={'/about'} component={NavBar} />
@@ -18,6 +17,7 @@ function App() {
 			<Route exact path={'/home'} component={Home} />
 			<Route exact path={'/pokecreate'} component={CreatePokemon} />
 			<Route exact path={'/home/:id'} component={Detail} />
+			<Route exact path={'/about'} component={About} />
 		</div>
 	);
 }

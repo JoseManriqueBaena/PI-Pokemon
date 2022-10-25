@@ -40,23 +40,6 @@ const getPokemonDb = async () => {
 			},
 		},
 	});
-	const pokemonsDb = pokeInfoDb.map((pokemon) => {
-		return {
-			id: pokemon.id,
-			name: pokemon.name,
-			pokedex: pokemon.pokedex,
-			hp: pokemon.hp,
-			attack: pokemon.attack,
-			defense: pokemon.defense,
-			speed: pokemon.speed,
-			height: pokemon.height,
-			weight: pokemon.weight,
-			img: pokemon.img,
-			crateInDb: pokemon.crateInDb,
-			Types: pokemon.Types.map((type) => type.name),
-		};
-	});
-	console.log(pokemonsDb);
 	return pokeInfoDb;
 };
 
@@ -99,9 +82,6 @@ const typesInDb = async () => {
 			where: pokemonType,
 		});
 	});
-	// await Type.bulkCreate(pokeInfo);
-	const dbTypes = await Type.findAll();
-	return dbTypes;
 };
 
 const getTypes = async () => {
