@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getPokemonsName } from '../../redux/actions';
 import style from './SearchBar.module.css';
 
-export default function SearchBar({ paginado }) {
+export default function SearchBar({ paginado, cacheFilters }) {
 	const [pokemonName, setPokemonName] = useState('');
 	const dispatch = useDispatch();
 	const loading = useSelector((state) => state.loading);
@@ -14,6 +14,7 @@ export default function SearchBar({ paginado }) {
 
 	const handlerSubmit = (event) => {
 		event.preventDefault();
+		cacheFilters('page', 1, 1, true);
 		dispatch(getPokemonsName(pokemonName));
 		setPokemonName('');
 		paginado(1);

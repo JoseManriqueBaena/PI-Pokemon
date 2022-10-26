@@ -30,6 +30,8 @@ function validate(input) {
 
 export default function CreatePokemon({ history }) {
 	const imgTypes = useSelector((state) => state.imgTypes);
+	const allTypes = useSelector((state) => state.types);
+	const dispatch = useDispatch();
 
 	const [errors, setErrors] = useState({
 		inicial: true,
@@ -46,13 +48,10 @@ export default function CreatePokemon({ history }) {
 		type: [],
 	});
 
-	const dispatch = useDispatch();
-	const allTypes = useSelector((state) => state.types);
-
 	useEffect(() => {
-		dispatch(getAllImgTypes());
-		dispatch(getAllTypes());
-	}, []);
+		if (imgTypes.length === 0) dispatch(getAllImgTypes());
+		if (allTypes.length === 0) dispatch(getAllTypes());
+	}, [dispatch, imgTypes, allTypes]);
 
 	const handlerChange = (event) => {
 		const nameProp = event.target.name;
@@ -82,23 +81,28 @@ export default function CreatePokemon({ history }) {
 		}
 	};
 
-	const handlerSubmit = (event) => {
+	const handlerSubmit = async (event) => {
 		event.preventDefault();
 
-		dispatch(createPokemon(newPokemon));
-		alert('Created pokemon');
-		setNewPokemon({
-			name: '',
-			hp: '',
-			attack: '',
-			defense: '',
-			speed: '',
-			height: '',
-			weight: '',
-			img: '',
-			type: [],
-		});
-		history.push('/home');
+		const response = await dispatch(createPokemon(newPokemon));
+
+		if (response) {
+			alert(response);
+		} else {
+			alert('Created pokemon');
+			setNewPokemon({
+				name: '',
+				hp: '',
+				attack: '',
+				defense: '',
+				speed: '',
+				height: '',
+				weight: '',
+				img: '',
+				type: [],
+			});
+			history.push('/home');
+		}
 	};
 
 	const onClose = (event) => {
@@ -184,6 +188,7 @@ export default function CreatePokemon({ history }) {
 										<p>
 											Name is required. <br /> Can have letters and numbers.
 											<br /> Must have at least three characters.
+											<br /> You can't create two pokemons with the same name.
 										</p>
 									</div>
 								</div>

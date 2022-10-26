@@ -21,6 +21,7 @@ export const EXISTING = 'EXISTING';
 export const CREATED = 'CREATED';
 export const LOADING = 'LOADING';
 export const CREATE_POKEMON = 'CREATE_POKEMON';
+export const SET_NEW_POKEMON = 'SET_NEW_POKEMON';
 
 export function loading() {
 	return {
@@ -154,8 +155,18 @@ export function getAllTypes() {
 
 export function createPokemon(pokemon) {
 	return async function (dispatch) {
-		await axios.post(`/pokemons`, pokemon);
-		dispatch({ type: CREATE_POKEMON });
+		try {
+			await axios.post(`/pokemons`, pokemon);
+			dispatch({ type: CREATE_POKEMON });
+		} catch (error) {
+			return error.response.data;
+		}
+	};
+}
+
+export function setNewPokemon() {
+	return async function (dispatch) {
+		dispatch({ type: SET_NEW_POKEMON });
 	};
 }
 export function getAllImgTypes() {

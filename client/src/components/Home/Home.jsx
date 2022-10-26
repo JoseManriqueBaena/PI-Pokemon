@@ -8,71 +8,74 @@ import {
 	getAllTypes,
 	orderFilter,
 	refresh,
+	setNewPokemon,
 } from '../../redux/actions';
 import style from './Home.module.css';
 import TabsFilter from '../TabsFilter/TabsFilter';
 import Pages from '../Pages/Pages';
 
-function Home() {
+function Home({ cacheFilters, filters, cacheFiltersReset }) {
 	const dispatch = useDispatch();
 	const allTypes = useSelector((state) => state.types);
 	const pokemons = useSelector((state) => state.pokemonsFiltered);
 	const loading = useSelector((state) => state.loading);
+	const newPokemon = useSelector((state) => state.newPokemon);
 	const [order, setOrder] = useState('');
-	const [activated, setActivated] = useState({
+	const [activatedPage, setActivatedPage] = useState({
 		1: true,
 	});
 	const [activatedTabs, setActivatedTabs] = useState({
-		All: true,
+		[filters.tabs]: true,
 	});
-	//pag
+	//*paginado
 	const [currentPage, setCurrentPage] = useState(1);
 	const [maxPokemonsPage, setMaxPokemonsPage] = useState(12);
 	const lastPokemon = currentPage * maxPokemonsPage;
 	const firstPokemon = lastPokemon - maxPokemonsPage;
 	const pokemonsPerPage = pokemons.slice(firstPokemon, lastPokemon);
 
-	//Volver a la página
+	//*Volver a la página
 	const paginado = (page) => {
 		setCurrentPage(page);
 	};
 
-	//Hover pagina
+	//*Hover pagina
 	const paginadoActivated = (value = 1) => {
 		const clicked = value;
-		setActivated({
+		setActivatedPage({
 			[clicked]: true,
 		});
 	};
 
 	let maxPages = Math.ceil(pokemons.length / maxPokemonsPage);
-
+	//*Next
 	const nextPage = () => {
 		if (currentPage < maxPages) {
 			setCurrentPage(currentPage + 1);
 			paginadoActivated(currentPage + 1);
+			cacheFilters('page', currentPage + 1);
 		}
 	};
-
+	//*Prev
 	const prevPage = () => {
 		if (currentPage > 1) {
 			setCurrentPage(currentPage - 1);
 			paginadoActivated(currentPage - 1);
+			cacheFilters('page', currentPage - 1);
 		}
 	};
-
 	const ordenado = (value) => {
 		setOrder(`Ordenado ${value}`);
 	};
-
-	//Hover tabs
+	//*Hover tabs
 	const tabsActivated = (clicked) => {
 		setActivatedTabs({
 			[clicked]: true,
 		});
 	};
-
+	//*Handler refresh
 	const handleClick = (event) => {
+		cacheFiltersReset();
 		paginado(1);
 		paginadoActivated(1);
 		tabsActivated('All');
@@ -81,9 +84,18 @@ function Home() {
 	};
 
 	useEffect(() => {
-		dispatch(getAllTypes());
-		dispatch(getAllPokemos());
-	}, []);
+		if (!pokemons.length || newPokemon) {
+			dispatch(getAllPokemos());
+			dispatch(setNewPokemon());
+		}
+
+		if (!allTypes.length) dispatch(getAllTypes());
+
+		if (filters.page !== 1) {
+			setCurrentPage(filters.page);
+			paginadoActivated(filters.page);
+		}
+	}, [dispatch]);
 
 	return (
 		<>
@@ -95,6 +107,7 @@ function Home() {
 							activated={activatedTabs}
 							fnActivated={tabsActivated}
 							paginadoActivated={paginadoActivated}
+							cacheFilters={cacheFilters}
 						/>
 						<Filterbutton
 							defaultOption={'Select type'}
@@ -104,6 +117,8 @@ function Home() {
 							paginado={paginado}
 							ordenado={ordenado}
 							paginadoActivated={paginadoActivated}
+							cacheFilters={cacheFilters}
+							filters={filters}
 						/>
 						<Filterbutton
 							defaultOption={'Select filter'}
@@ -113,6 +128,8 @@ function Home() {
 							paginado={paginado}
 							ordenado={ordenado}
 							paginadoActivated={paginadoActivated}
+							cacheFilters={cacheFilters}
+							filters={filters}
 						/>
 
 						<Filterbutton
@@ -123,8 +140,10 @@ function Home() {
 							paginado={paginado}
 							ordenado={ordenado}
 							paginadoActivated={paginadoActivated}
+							cacheFilters={cacheFilters}
+							filters={filters}
 						/>
-						<SearchBar paginado={paginado} />
+						<SearchBar paginado={paginado} cacheFilters={cacheFilters} />
 						{loading ? null : (
 							<button className={style.buttonRefresh} onClick={handleClick}>
 								Refresh
@@ -135,7 +154,7 @@ function Home() {
 				<Pokemons pokemons={pokemonsPerPage} />
 				{pokemons.length <= 12 ? undefined : (
 					<Pages
-						activated={activated}
+						activated={activatedPage}
 						paginadoActivated={paginadoActivated}
 						maxPokemonsPage={maxPokemonsPage}
 						pokemons={pokemons.length}
@@ -144,6 +163,7 @@ function Home() {
 						maxPages={maxPages}
 						nextPage={nextPage}
 						prevPage={prevPage}
+						cacheFilters={cacheFilters}
 					/>
 				)}
 			</div>

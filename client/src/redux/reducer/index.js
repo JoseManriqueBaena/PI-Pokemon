@@ -20,6 +20,7 @@ import {
 	GET_ALL_IMG_TYPES,
 	CREATE_POKEMON,
 	REFRESH_TYPES,
+	SET_NEW_POKEMON,
 } from '../actions/index.js';
 
 import {
@@ -44,6 +45,7 @@ const initialState = {
 	types: [],
 	imgTypes: [],
 	loading: false,
+	newPokemon: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -52,7 +54,6 @@ const reducer = (state = initialState, action) => {
 			return {
 				...state,
 				loading: false,
-				cache: action.payload,
 				pokeCache: action.payload,
 				pokemons: action.payload,
 				pokemonsFiltered: action.payload,
@@ -195,6 +196,13 @@ const reducer = (state = initialState, action) => {
 		case CREATE_POKEMON:
 			return {
 				...state,
+				newPokemon: true,
+			};
+
+		case SET_NEW_POKEMON:
+			return {
+				...state,
+				newPokemon: false,
 			};
 
 		default:

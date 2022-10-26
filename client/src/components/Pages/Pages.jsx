@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import style from './Pages.module.css';
 
@@ -12,12 +12,14 @@ export default function Pages({
 	maxPages,
 	nextPage,
 	prevPage,
+	cacheFilters,
 }) {
 	const loading = useSelector((state) => state.loading);
 
 	const handlerClick = (event, number) => {
 		paginado(number);
 		paginadoActivated(event.target.name);
+		cacheFilters('page', number);
 	};
 
 	const pageNumbers = [];

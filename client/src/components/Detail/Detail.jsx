@@ -25,8 +25,8 @@ export default function Detail({ match, history }) {
 	const pokeid = match.params.id;
 	useEffect(() => {
 		dispatch(getPokemonId(pokeid));
-		dispatch(getAllImgTypes());
-	}, [dispatch, pokeid]);
+		if (imgTypes.length === 0) dispatch(getAllImgTypes());
+	}, [dispatch, pokeid, imgTypes]);
 
 	const images = pokeDetail.crateInDb
 		? pokeDetail.Types?.map((type) =>

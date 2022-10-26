@@ -4,30 +4,34 @@ const { Pokemon, Type } = require('../db');
 const ulr40Pokemon = 'https://pokeapi.co/api/v2/pokemon?limit=151&offset=0';
 
 const getPokemonsApi = async () => {
-	const pokemonApiUrl = await axios.get(ulr40Pokemon);
-	const arrayPromise = await pokemonApiUrl?.data.results.map((element) => {
-		return axios.get(element.url);
-	});
-	const promiseData = await Promise.all(arrayPromise);
-	const pokeInfo = promiseData?.map((element) => element.data);
-	let pokedex = 0;
-	const pokeInfoFiltered = pokeInfo?.map((element) => {
-		return {
-			id: element.id,
-			name: element.name,
-			pokedex: ++pokedex,
-			hp: element.stats[0].base_stat,
-			attack: element.stats[1].base_stat,
-			defense: element.stats[2].base_stat,
-			speed: element.stats[5].base_stat,
-			height: element.height,
-			weight: element.weight,
-			img: element.sprites.other.home.front_default,
-			imgShiny: element.sprites.other.home.front_shiny,
-			types: element.types.map((element) => element.type.name),
-		};
-	});
-	return pokeInfoFiltered;
+	try {
+		const pokemonApiUrl = await axios.get(ulr40Pokemon);
+		const arrayPromise = await pokemonApiUrl?.data.results.map((element) => {
+			return axios.get(element.url);
+		});
+		const promiseData = await Promise.all(arrayPromise);
+		const pokeInfo = promiseData?.map((element) => element.data);
+		let pokedex = 0;
+		const pokeInfoFiltered = pokeInfo?.map((element) => {
+			return {
+				id: element.id,
+				name: element.name,
+				pokedex: ++pokedex,
+				hp: element.stats[0].base_stat,
+				attack: element.stats[1].base_stat,
+				defense: element.stats[2].base_stat,
+				speed: element.stats[5].base_stat,
+				height: element.height,
+				weight: element.weight,
+				img: element.sprites.other.home.front_default,
+				imgShiny: element.sprites.other.home.front_shiny,
+				types: element.types.map((element) => element.type.name),
+			};
+		});
+		return pokeInfoFiltered;
+	} catch (error) {
+		console.log(error, 'getPokemonsApi');
+	}
 };
 
 const getPokemonDb = async () => {
@@ -70,18 +74,22 @@ const getPokemonsId = async (id) => {
 };
 
 const typesInDb = async () => {
-	const apiTypes = await axios.get('https://pokeapi.co/api/v2/type');
-	const pokeInfo = await apiTypes.data.results.map((type) => {
-		return {
-			name: type.name,
-		};
-	});
-
-	pokeInfo.forEach((pokemonType) => {
-		Type.findOrCreate({
-			where: pokemonType,
+	try {
+		const apiTypes = await axios.get('https://pokeapi.co/api/v2/type');
+		const pokeInfo = await apiTypes.data.results.map((type) => {
+			return {
+				name: type.name,
+			};
 		});
-	});
+
+		pokeInfo.forEach((pokemonType) => {
+			Type.findOrCreate({
+				where: pokemonType,
+			});
+		});
+	} catch (error) {
+		console.log(error, 'typesInDb');
+	}
 };
 
 const getTypes = async () => {

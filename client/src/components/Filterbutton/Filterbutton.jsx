@@ -11,6 +11,8 @@ export default function Filterbutton({
 	paginado,
 	ordenado,
 	paginadoActivated,
+	cacheFilters,
+	filters,
 }) {
 	const dispatch = useDispatch();
 	const loading = useSelector((state) => state.loading);
@@ -22,13 +24,15 @@ export default function Filterbutton({
 		switch (targetName) {
 			case 'Types':
 				paginado(1);
-				event.target.value === 'All types'
+				cacheFilters('type', targetValue);
+				targetValue === 'All types'
 					? dispatch(refreshTypes())
 					: dispatch(filterTypes(targetValue));
 				break;
 
 			default:
 				paginado(1);
+				cacheFilters('order', targetValue);
 				ordenado(targetValue);
 				dispatch(orderFilter(targetValue));
 				break;
@@ -38,14 +42,14 @@ export default function Filterbutton({
 	function capitalize(word) {
 		return word[0].toUpperCase() + word.slice(1).toLowerCase();
 	}
-
+	// console.log(filters.type);
 	return (
 		<>
 			{loading ? null : (
 				<div>
 					<select
 						className={style.selectButton}
-						defaultValue={defaultOption}
+						defaultValue={name === 'Types' ? filters.type : filters.order}
 						name={name}
 						id={name}
 						onChange={handlerChange}
