@@ -29,11 +29,15 @@ export function loading() {
 	};
 }
 
-export function getAllPokemos() {
+export function getAllPokemons() {
 	return async function (dispatch) {
 		dispatch(loading());
-		const response = await axios.get(`/pokemons`);
-		dispatch({ type: GET_ALL_POKEMONS, payload: response.data });
+		try {
+			const response = await axios.get(`/pokemons`);
+			dispatch({ type: GET_ALL_POKEMONS, payload: response.data });
+		} catch (error) {
+			console.log(error.response.data);
+		}
 	};
 }
 
@@ -148,18 +152,23 @@ export function orderFilter(order) {
 
 export function getAllTypes() {
 	return async function (dispatch) {
-		const response = await axios.get(`/types`);
-		dispatch({ type: GET_ALL_TYPES, payload: response.data });
+		try {
+			const response = await axios.get(`/types`);
+			dispatch({ type: GET_ALL_TYPES, payload: response.data });
+		} catch (error) {
+			console.log(error.response.data);
+		}
 	};
 }
 
 export function createPokemon(pokemon) {
 	return async function (dispatch) {
 		try {
-			await axios.post(`/pokemons`, pokemon);
+			const response = await axios.post(`/pokemons`, pokemon);
 			dispatch({ type: CREATE_POKEMON });
+			return response;
 		} catch (error) {
-			return error.response.data;
+			console.log(error.response.data);
 		}
 	};
 }

@@ -4,7 +4,7 @@ import SearchBar from '../SearchBar/SearchBar';
 import Filterbutton from '../Filterbutton/Filterbutton';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-	getAllPokemos,
+	getAllPokemons,
 	getAllTypes,
 	orderFilter,
 	refresh,
@@ -20,6 +20,7 @@ function Home({ cacheFilters, filters, cacheFiltersReset }) {
 	const pokemons = useSelector((state) => state.pokemonsFiltered);
 	const loading = useSelector((state) => state.loading);
 	const newPokemon = useSelector((state) => state.newPokemon);
+	// eslint-disable-next-line
 	const [order, setOrder] = useState('');
 	const [activatedPage, setActivatedPage] = useState({
 		1: true,
@@ -29,6 +30,7 @@ function Home({ cacheFilters, filters, cacheFiltersReset }) {
 	});
 	//*paginado
 	const [currentPage, setCurrentPage] = useState(1);
+	// eslint-disable-next-line
 	const [maxPokemonsPage, setMaxPokemonsPage] = useState(12);
 	const lastPokemon = currentPage * maxPokemonsPage;
 	const firstPokemon = lastPokemon - maxPokemonsPage;
@@ -74,7 +76,7 @@ function Home({ cacheFilters, filters, cacheFiltersReset }) {
 		});
 	};
 	//*Handler refresh
-	const handleClick = (event) => {
+	const handleClick = () => {
 		cacheFiltersReset();
 		paginado(1);
 		paginadoActivated(1);
@@ -82,20 +84,24 @@ function Home({ cacheFilters, filters, cacheFiltersReset }) {
 		dispatch(refresh());
 		dispatch(orderFilter('Ascending pokedex'));
 	};
-
+	console.log(filters);
 	useEffect(() => {
-		if (!pokemons.length || newPokemon) {
-			dispatch(getAllPokemos());
-			dispatch(setNewPokemon());
-		}
-
 		if (!allTypes.length) dispatch(getAllTypes());
 
 		if (filters.page !== 1) {
-			setCurrentPage(filters.page);
+			paginado(filters.page);
 			paginadoActivated(filters.page);
 		}
-	}, [dispatch]);
+
+		if (!pokemons.length || newPokemon) {
+			cacheFiltersReset();
+			paginado(1);
+			paginadoActivated(1);
+			dispatch(getAllPokemons());
+			dispatch(setNewPokemon());
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [dispatch, newPokemon]);
 
 	return (
 		<>

@@ -35,7 +35,7 @@ function Card({
 		<>
 			<div className={style.container}>
 				<div className={style.mainContainer}>
-					<a
+					<div
 						className={style.card1}
 						style={{ '--color1': color1, '--color2': color2 }}
 					>
@@ -71,7 +71,7 @@ function Card({
 									</div>
 								</div>
 
-								<img className={style.imgPokemon} src={img} alt={img} />
+								<img className={style.imgPokemon} src={img} alt={'Pokemon'} />
 								<div className={style.pokedexContainer}>
 									<img
 										className={style.imgPokedex}
@@ -117,7 +117,7 @@ function Card({
 								</div>
 							</div>
 						</Link>
-					</a>
+					</div>
 				</div>
 			</div>
 		</>

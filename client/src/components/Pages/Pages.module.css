@@ -36,6 +36,7 @@
 	height: 40px;
 	transition: 0.5s;
 	cursor: pointer;
+	text-decoration: none;
 }
 
 .aNumber:hover {
@@ -54,6 +55,7 @@
 	width: 40px;
 	height: 40px;
 	transition: 0.5s;
+	text-decoration: none;
 }
 
 .prevNextButton {

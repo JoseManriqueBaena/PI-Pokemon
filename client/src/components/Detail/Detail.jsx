@@ -75,21 +75,21 @@ export default function Detail({ match, history }) {
 									<img
 										className={style.imgshiny}
 										src={shiny ? IconShinyOn : IconShinyOff}
-										alt={IconShinyOff}
+										alt={'Shiny'}
 									/>
 								</div>
 
 								<img
 									className={style.imgPokemon}
 									src={shiny ? pokeDetail.imgShiny : pokeDetail.img}
-									alt={pokeDetail.img}
+									alt={'Normal color'}
 								/>
 							</div>
 						) : (
 							<img
 								className={style.imgPokemon}
 								src={pokeDetail.img}
-								alt={pokeDetail.img}
+								alt={'Normal color'}
 							/>
 						)}
 

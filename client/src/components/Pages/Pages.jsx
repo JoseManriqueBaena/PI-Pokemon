@@ -17,6 +17,8 @@ export default function Pages({
 	const loading = useSelector((state) => state.loading);
 
 	const handlerClick = (event, number) => {
+		event.preventDefault();
+
 		paginado(number);
 		paginadoActivated(event.target.name);
 		cacheFilters('page', number);
@@ -48,6 +50,7 @@ export default function Pages({
 						{pageNumbers?.map((number) => (
 							<li key={number} className={style.numberPage}>
 								<a
+									href='#/'
 									name={number}
 									className={`${
 										activated[number] ? style.active : style.aNumber
