@@ -55,9 +55,17 @@ const getAllPokemons = async () => {
 };
 
 const getPokemonsName = async (name, info) => {
-	const pokemonFind = info?.filter(
-		(pokemon) => pokemon.name.toLowerCase() === name.toLowerCase()
-	);
+	let pokemonFind;
+	if (name.length === 1) {
+		pokemonFind = info?.filter(
+			(pokemon) => pokemon.name.toLowerCase()[0] === name.toLowerCase()
+		);
+	} else {
+		pokemonFind = info?.filter((pokemon) =>
+			pokemon.name.includes(name.toLowerCase())
+		);
+	}
+
 	if (!pokemonFind.length) {
 		throw new Error(`No se encontró un pokemon con el nombre ${name}`);
 	}
