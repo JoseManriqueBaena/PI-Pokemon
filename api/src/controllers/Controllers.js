@@ -5,10 +5,22 @@ const ulr40Pokemon = 'https://pokeapi.co/api/v2/pokemon?limit=151&offset=0';
 
 const getPokemonsApi = async () => {
 	try {
-		const pokemonApiUrl = await axios.get(ulr40Pokemon);
-		const arrayPromise = await pokemonApiUrl?.data.results.map((element) => {
-			return axios.get(element.url);
+		// const pokemonApiUrl = await axios.get(ulr40Pokemon);
+		const pokemonApiUrl = await axios({
+			method: 'get',
+			url: ulr40Pokemon,
+			headers: { 'Accept-Encoding': 'null' },
 		});
+
+		const arrayPromise = await pokemonApiUrl?.data.results.map((element) => {
+			// return axios.get(element.url);
+			return axios({
+				method: 'get',
+				url: element.url,
+				headers: { 'Accept-Encoding': 'null' },
+			});
+		});
+
 		const promiseData = await Promise.all(arrayPromise);
 		const pokeInfo = promiseData?.map((element) => element.data);
 		let pokedex = 0;
@@ -83,7 +95,13 @@ const getPokemonsId = async (id) => {
 
 const typesInDb = async () => {
 	try {
-		const apiTypes = await axios.get('https://pokeapi.co/api/v2/type');
+		// const apiTypes = await axios.get('https://pokeapi.co/api/v2/type');
+		const apiTypes = await axios({
+			method: 'get',
+			url: 'https://pokeapi.co/api/v2/type',
+			headers: { 'Accept-Encoding': 'null' },
+		});
+
 		const pokeInfo = await apiTypes.data.results.map((type) => {
 			return {
 				name: type.name,
